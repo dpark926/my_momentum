@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
+import NavBar from './components/NavBar.js'
 import Weather from './components/Weather.js'
-import Alarm from './components/Alarm.js'
+import Alarm from './containers/Alarm.js'
 import WorldClock from './components/WorldClock.js'
 
 class App extends Component {
@@ -17,9 +18,10 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p> */}
+        <NavBar/>
         <Route path="/weather" component={Weather}/>
         <Route path="/alarm" component={Alarm}/>
-        <Route path="/worldClock" component={WorldClock}/>
+        <Route path="/worldclock" component={WorldClock}/>
       </div>
     );
   }
