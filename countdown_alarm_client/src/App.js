@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar.js'
-import Weather from './components/Weather.js'
+import Weather from './containers/Weather.js'
 import Alarm from './containers/Alarm.js'
 import WorldClock from './components/WorldClock.js'
 
