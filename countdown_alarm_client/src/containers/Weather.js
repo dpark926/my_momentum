@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddCity from '../components/AddCity.js'
+import AddWeatherCity from '../components/AddWeatherCity.js'
 
 class Weather extends Component {
   constructor () {
@@ -19,7 +19,7 @@ class Weather extends Component {
   }
 
   render () {
-    if (!this.state.setTime) {
+    if (!this.state.addCity) {
       return (
         <div>
           <h1>Weather</h1>
@@ -30,7 +30,7 @@ class Weather extends Component {
       return (
         <div>
           <h1>Weather</h1>
-          <AddCity/>
+          <AddWeatherCity/>
         </div>
       )
     }
