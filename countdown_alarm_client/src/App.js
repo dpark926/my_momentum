@@ -7,6 +7,7 @@ import Weather from './containers/Weather.js'
 import Alarm from './containers/Alarm.js'
 import WorldClock from './containers/WorldClock.js'
 import Pomodoro from './containers/Pomodoro.js'
+import StopWatch from './containers/StopWatch.js'
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
         <Route path="/alarm" component={Alarm}/>
         <Route path="/worldclock" component={WorldClock}/>
         <Route path="/pomodoro" component={Pomodoro}/>
+        <Route path="/stopwatch" component={StopWatch}/>
       </div>
     );
   }
