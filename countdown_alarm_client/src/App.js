@@ -5,7 +5,7 @@ import './App.css';
 import NavBar from './components/NavBar.js'
 import Weather from './containers/Weather.js'
 import Alarm from './containers/Alarm.js'
-import WorldClock from './components/WorldClock.js'
+import WorldClock from './containers/WorldClock.js'
 
 class App extends Component {
   render() {
