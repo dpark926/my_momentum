@@ -7,6 +7,7 @@ function NavBar () {
       <Link to="alarm" className='navbar-category'>Alarm</Link>
       <Link to="weather" className='navbar-category'>Weather</Link>
       <Link to="worldclock" className='navbar-category'>World Clock</Link>
+      <Link to="pomodoro" className='navbar-category'>Pomodoro</Link>
     </div>
   )
 }

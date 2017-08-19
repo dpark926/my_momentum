@@ -6,6 +6,7 @@ import NavBar from './components/NavBar.js'
 import Weather from './containers/Weather.js'
 import Alarm from './containers/Alarm.js'
 import WorldClock from './containers/WorldClock.js'
+import Pomodoro from './containers/Pomodoro.js'
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
         <Route path="/weather" component={Weather}/>
         <Route path="/alarm" component={Alarm}/>
         <Route path="/worldclock" component={WorldClock}/>
+        <Route path="/pomodoro" component={Pomodoro}/>
       </div>
     );
   }
