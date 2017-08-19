@@ -32,7 +32,28 @@ function SetTime () {
       <select>
         <option value="AM" id="AM">AM</option>
         <option value="PM" id="PM">PM</option>
-      </select>
+      </select><br/><br/>
+
+      <div>Label</div>
+      <input type="text"></input><br/><br/>
+
+      <div>Repeat</div>
+      <div>
+        <input type="checkbox"></input>
+        <label>Sunday</label>
+        <input type="checkbox"></input>
+        <label>Monday</label>
+        <input type="checkbox"></input>
+        <label>Tuesday</label>
+        <input type="checkbox"></input>
+        <label>Wednesday</label>
+        <input type="checkbox"></input>
+        <label>Thursday</label>
+        <input type="checkbox"></input>
+        <label>Friday</label>
+        <input type="checkbox"></input>
+        <label>Saturday</label>
+      </div>
       <input type="submit"></input>
     </div>
   )
