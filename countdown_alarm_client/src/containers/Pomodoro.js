@@ -6,6 +6,7 @@ class Pomodoro extends Component {
     super()
 
     this.state = {
+      interval: 0,
       start: false,
       pause: false,
       hour: 0,
@@ -21,6 +22,7 @@ class Pomodoro extends Component {
     this.setLongBreak = this.setLongBreak.bind(this)
     this.cancelToggle = this.cancelToggle.bind(this)
     this.pauseToggle = this.pauseToggle.bind(this)
+    this.resumeToggle = this.resumeToggle.bind(this)
     this.secondCounter = this.secondCounter.bind(this)
   }
 
@@ -60,10 +62,11 @@ class Pomodoro extends Component {
   }
 
   startToggle () {
+    let interval = setInterval(this.secondCounter, 1000)
     this.setState({
       start: !this.state.start,
+      interval: interval
     })
-    setInterval(this.secondCounter, 1000)
   }
 
   cancelToggle () {
@@ -73,12 +76,21 @@ class Pomodoro extends Component {
       minute: 0,
       second: 0,
     })
-    // clearInterval(this.startToggle)
+    clearInterval(this.state.interval)
   }
 
   pauseToggle () {
     this.setState({
       pause: !this.state.pause,
+    })
+    clearInterval(this.state.interval)
+  }
+
+  resumeToggle () {
+    let interval = setInterval(this.secondCounter, 1000)
+    this.setState({
+      pause: !this.state.pause,
+      interval: interval,
     })
   }
 
@@ -141,7 +153,7 @@ class Pomodoro extends Component {
               <div className="category-box">{this.state.hour} : {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div><br/>
             </div>
 
-              <div>
+            <div className="wrapper">
               <div className="category-box" onClick={this.pauseToggle}>Pause</div>
               <div className="category-box" onClick={this.cancelToggle}>Cancel</div>
             </div>
@@ -157,7 +169,7 @@ class Pomodoro extends Component {
             </div>
 
             <div className="wrapper">
-              <div className="category-box" onClick={this.pauseToggle}>Resume</div>
+              <div className="category-box" onClick={this.resumeToggle}>Resume</div>
               <div className="category-box" onClick={this.cancelToggle}>Cancel</div>
             </div>
           </div>
