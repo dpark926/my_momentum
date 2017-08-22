@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import '../styles/Pomodoro.css'
 
 class Pomodoro extends Component {
   constructor () {
@@ -93,47 +94,72 @@ class Pomodoro extends Component {
     if (!this.state.start) {
       if (this.state.minute === 0) {
         return (
-          <div>
+          <div className="pomodoro">
             <h1>Pomodoro</h1>
-            <div onClick={this.setSubtractFive}>-</div>
-            <div onClick={this.setAddFive}>+</div>
-            <div>{this.state.hour} : {this.state.minute}</div>
-            <div onClick={this.setPomodoro}>Pomodoro</div>
-            <div onClick={this.setShortBreak}>Short Break</div>
-            <div onClick={this.setLongBreak}>Long Break</div><br/>
+
+            <div className="wrapper">
+              <div className="category-box" onClick={this.setPomodoro}>Pomodoro</div>
+              <div className="category-box" onClick={this.setShortBreak}>Short Break</div>
+              <div className="category-box" onClick={this.setLongBreak}>Long Break</div><br/>
+            </div>
+
+            <div className="wrapper">
+              <div className="addSubtract">-</div>
+              <div className="category-box">{this.state.hour} : {this.state.minute}</div>
+              <div className="addSubtract" onClick={this.setAddFive}>+</div><br/>
+            </div>
           </div>
         )
       } else {
         return (
-          <div>
+          <div className="pomodoro">
             <h1>Pomodoro</h1>
-            <div onClick={this.setSubtractFive}>-</div>
-            <div onClick={this.setAddFive}>+</div>
-            <div>{this.state.hour} : {this.state.minute}</div>
-            <div onClick={this.setPomodoro}>Pomodoro</div>
-            <div onClick={this.setShortBreak}>Short Break</div>
-            <div onClick={this.setLongBreak}>Long Break</div><br/>
-            <div onClick={this.startToggle}>Start</div>
+
+            <div className="wrapper">
+              <div className="category-box" onClick={this.setPomodoro}>Pomodoro</div>
+              <div className="category-box" onClick={this.setShortBreak}>Short Break</div>
+              <div className="category-box" onClick={this.setLongBreak}>Long Break</div><br/>
+            </div>
+
+            <div className="wrapper">
+              <div className="addSubtract" onClick={this.setSubtractFive}>-</div>
+              <div className="category-box">{this.state.hour} : {this.state.minute}</div>
+              <div className="addSubtract" onClick={this.setAddFive}>+</div><br/>
+            </div>
+
+            <div className="category-box" onClick={this.startToggle}>Start</div>
           </div>
         )
       }
     } else {
       if (!this.state.pause) {
         return (
-          <div>
+          <div className="pomodoro">
             <h1>Pomodoro</h1>
-            <div>{this.state.hour} : {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div>
-            <div onClick={this.pauseToggle}>Pause</div><br/>
-            <div onClick={this.cancelToggle}>Cancel</div>
+
+            <div className="wrapper">
+              <div className="category-box">{this.state.hour} : {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div><br/>
+            </div>
+
+              <div>
+              <div className="category-box" onClick={this.pauseToggle}>Pause</div>
+              <div className="category-box" onClick={this.cancelToggle}>Cancel</div>
+            </div>
           </div>
         )
       } else {
         return (
-          <div>
+          <div className="pomodoro">
             <h1>Pomodoro</h1>
-            <div>{this.state.hour} : {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div>
-            <div onClick={this.pauseToggle}>Resume</div><br/>
-            <div onClick={this.cancelToggle}>Cancel</div>
+
+            <div className="wrapper">
+              <div className="category-box">{this.state.hour} : {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div><br/>
+            </div>
+
+            <div className="wrapper">
+              <div className="category-box" onClick={this.pauseToggle}>Resume</div>
+              <div className="category-box" onClick={this.cancelToggle}>Cancel</div>
+            </div>
           </div>
         )
       }

@@ -1,0 +1,26 @@
+.pomodoro {
+  border: 1px solid blue;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  border: 1px solid red;
+}
+
+.addSubtract {
+  border: 1px solid pink;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+}
+
+.category-box {
+  border: 1px solid green;
+  display: inline-block;
+  width: 250px;
+  height: 50px;
+  font-size: 40px;
+}
