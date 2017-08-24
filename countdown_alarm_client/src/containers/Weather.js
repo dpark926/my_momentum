@@ -8,17 +8,15 @@ class Weather extends Component {
     this.state = {
       addCity: false,
     }
-
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       addCity: !this.state.addCity,
     })
   }
 
-  render () {
+  render = () => {
     if (!this.state.addCity) {
       return (
         <div>

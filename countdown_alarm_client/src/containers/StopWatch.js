@@ -14,16 +14,9 @@ class StopWatch extends Component {
       millisecond: 0,
       lap: [],
     }
-
-    this.startToggle = this.startToggle.bind(this)
-    this.pauseToggle = this.pauseToggle.bind(this)
-    this.resumeToggle = this.resumeToggle.bind(this)
-    this.resetToggle = this.resetToggle.bind(this)
-    this.secondCounter = this.secondCounter.bind(this)
-    this.addToLap = this.addToLap.bind(this)
   }
 
-  startToggle () {
+  startToggle = () => {
     let interval = setInterval(this.secondCounter, 10)
     this.setState({
       start: !this.state.start,
@@ -32,14 +25,14 @@ class StopWatch extends Component {
     })
   }
 
-  pauseToggle () {
+  pauseToggle = () => {
     this.setState({
       pause: !this.state.pause,
     })
     clearInterval(this.state.interval)
   }
 
-  resumeToggle () {
+  resumeToggle = () => {
     let interval = setInterval(this.secondCounter, 10)
     this.setState({
       pause: !this.state.pause,
@@ -47,7 +40,7 @@ class StopWatch extends Component {
     })
   }
 
-  resetToggle () {
+  resetToggle = () => {
     this.setState({
       start: !this.state.start,
       hour: 0,
@@ -60,22 +53,22 @@ class StopWatch extends Component {
     clearInterval(this.state.interval)
   }
 
-  secondCounter () {
+  secondCounter = () => {
     this.setState({
       // hour: Math.floor(this.state.second / 3600),
-      // minute: Math.floor((this.state.second - 1) / 60),
+      minute: Math.floor((this.state.second) / 60),
       second: Math.floor(this.state.millisecond / 100),
       millisecond: this.state.millisecond + 1
     })
   }
 
-  addToLap () {
+  addToLap = () => {
     this.setState({
       lap: this.state.lap.concat([`${(Math.floor(this.state.millisecond / 1000) % 10)}${(Math.floor(this.state.millisecond / 100) % 10)} : ${Math.floor(this.state.millisecond / 10) % 10}${this.state.millisecond % 10}`])
     })
   }
 
-  render () {
+  render = () => {
     let laps = (this.state.lap).map( time => {
       return <div>{time}</div>
     })
@@ -92,7 +85,7 @@ class StopWatch extends Component {
       return (
         <div>
           <h1>Stop Watch</h1>
-          {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
+          {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
           <div onClick={this.resumeToggle}>Resume</div>
           <div onClick={this.resetToggle}>Reset</div>
           <div>{laps}</div>
@@ -102,7 +95,7 @@ class StopWatch extends Component {
       return (
         <div>
           <h1>Stop Watch</h1>
-          {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
+          {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
           <div onClick={this.pauseToggle}>Pause</div>
           <div onClick={this.addToLap}>Lap</div>
           <div>{laps}</div>

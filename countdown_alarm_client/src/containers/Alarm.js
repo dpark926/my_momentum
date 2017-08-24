@@ -12,13 +12,13 @@ class Alarm extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       setTime: !this.state.setTime,
     })
   }
 
-  render () {
+  render = () => {
     if (!this.state.setTime) {
       return (
         <div>

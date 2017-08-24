@@ -13,55 +13,44 @@ class Pomodoro extends Component {
       minute: 0,
       second: 0,
     }
-
-    this.setAddFive = this.setAddFive.bind(this)
-    this.setSubtractFive = this.setSubtractFive.bind(this)
-    this.startToggle = this.startToggle.bind(this)
-    this.setPomodoro = this.setPomodoro.bind(this)
-    this.setShortBreak = this.setShortBreak.bind(this)
-    this.setLongBreak = this.setLongBreak.bind(this)
-    this.cancelToggle = this.cancelToggle.bind(this)
-    this.pauseToggle = this.pauseToggle.bind(this)
-    this.resumeToggle = this.resumeToggle.bind(this)
-    this.secondCounter = this.secondCounter.bind(this)
   }
 
-  setAddFive() {
+  setAddFive = () => {
     this.setState({
       minute: (this.state.minute + 5) % 60,
       second: (this.state.second + (5 * 60)) % 3600,
     })
   }
 
-  setSubtractFive() {
+  setSubtractFive = () => {
     this.setState({
       minute: this.state.minute - 5,
       second: this.state.second - (5 * 60),
     })
   }
 
-  setPomodoro () {
+  setPomodoro = () => {
     this.setState({
       minute: 25,
       second: 25 * 60,
     })
   }
 
-  setShortBreak () {
+  setShortBreak = () => {
     this.setState({
       minute: 5,
       second: 5 * 60,
     })
   }
 
-  setLongBreak () {
+  setLongBreak = () => {
     this.setState({
       minute: 10,
       second: 10 * 60,
     })
   }
 
-  startToggle () {
+  startToggle = () => {
     let interval = setInterval(this.secondCounter, 1000)
     this.setState({
       start: !this.state.start,
@@ -69,7 +58,7 @@ class Pomodoro extends Component {
     })
   }
 
-  cancelToggle () {
+  cancelToggle = () => {
     this.setState({
       start: !this.state.start,
       hour: 0,
@@ -79,14 +68,14 @@ class Pomodoro extends Component {
     clearInterval(this.state.interval)
   }
 
-  pauseToggle () {
+  pauseToggle = () => {
     this.setState({
       pause: !this.state.pause,
     })
     clearInterval(this.state.interval)
   }
 
-  resumeToggle () {
+  resumeToggle = () => {
     let interval = setInterval(this.secondCounter, 1000)
     this.setState({
       pause: !this.state.pause,
@@ -94,7 +83,7 @@ class Pomodoro extends Component {
     })
   }
 
-  secondCounter () {
+  secondCounter = () => {
     this.setState({
       hour: Math.floor(this.state.second / 3600),
       minute: Math.floor((this.state.second - 1) / 60),
@@ -102,7 +91,7 @@ class Pomodoro extends Component {
     })
   }
 
-  render () {
+  render = () => {
     if (!this.state.start) {
       if (this.state.minute === 0) {
         return (
@@ -120,6 +109,8 @@ class Pomodoro extends Component {
               <div className="category-box">{this.state.hour} : {this.state.minute}</div>
               <div className="addSubtract" onClick={this.setAddFive}>+</div><br/>
             </div>
+
+
           </div>
         )
       } else {

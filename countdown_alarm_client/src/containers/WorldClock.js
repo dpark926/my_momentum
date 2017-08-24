@@ -8,17 +8,15 @@ class WorldClock extends Component {
     this.state = {
       addWorldClock: false,
     }
-
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       addWorldClock: !this.state.addWorldClock,
     })
   }
 
-  render () {
+  render = () => {
     if (!this.state.addWorldClock) {
       return (
         <div>
