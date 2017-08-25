@@ -60,7 +60,8 @@ class Pomodoro extends Component {
 
   cancelToggle = () => {
     this.setState({
-      start: !this.state.start,
+      start: false,
+      pause: false,
       hour: 0,
       minute: 0,
       second: 0,
