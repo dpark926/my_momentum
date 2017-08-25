@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825032038) do
+ActiveRecord::Schema.define(version: 20170825035527) do
 
-  create_table "alarm", force: :cascade do |t|
+  create_table "alarms", force: :cascade do |t|
     t.string  "time"
     t.string  "label"
     t.boolean "am?"
