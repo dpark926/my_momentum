@@ -23,10 +23,10 @@ function SetTime (props) {
   return (
     <div>
       <form onSubmit={props.addToAlarm}>
-        <select onChange={props.handleHour}>
+        <select name="hour" onChange={props.handleTime}>
           {hour}
         </select>
-        <select onChange={props.handleMinute}>
+        <select name="minute" onChange={props.handleTime}>
           <option value="0" id="min0">00</option>
           {minute}
         </select>

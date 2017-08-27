@@ -38,15 +38,10 @@ class Alarm extends Component {
     }))
   }
 
-  handleHour = (event) => {
+  handleTime = (event) => {
+    let name = event.target.name
     this.setState({
-      hour: event.target.value
-    })
-  }
-
-  handleMinute = (event) => {
-    this.setState({
-      minute: event.target.value
+      [name]: event.target.value
     })
   }
 
@@ -140,8 +135,8 @@ class Alarm extends Component {
           <h1>Alarm</h1>
           <SetTime
             addToAlarm={this.addToAlarm}
-            handleHour={this.handleHour}
-            handleMinute={this.handleMinute}
+            handleTime={this.handleTime}
+            // handleMinute={this.handleMinute}
             handleAM={this.handleAM}
             handleLabel={this.handleLabel}
             handleDay={this.handleDay}
