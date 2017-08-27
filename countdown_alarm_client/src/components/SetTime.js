@@ -40,19 +40,19 @@ function SetTime (props) {
 
         <div>Repeat</div>
         <div>
-          <input type="checkbox" onChange={props.handleSunday}></input>
+          <input type="checkbox" name="sunday" onChange={props.handleDay}></input>
           <label>Sunday</label>
-          <input type="checkbox" onChange={props.handleMonday}></input>
+          <input type="checkbox" name="monday" onChange={props.handleDay}></input>
           <label>Monday</label>
-          <input type="checkbox" onChange={props.handleTuesday}></input>
+          <input type="checkbox" name="tuesday" onChange={props.handleDay}></input>
           <label>Tuesday</label>
-          <input type="checkbox" onChange={props.handleWednesday}></input>
+          <input type="checkbox" name="wednesday" onChange={props.handleDay}></input>
           <label>Wednesday</label>
-          <input type="checkbox" onChange={props.handleThursday}></input>
+          <input type="checkbox" name="thursday" onChange={props.handleDay}></input>
           <label>Thursday</label>
-          <input type="checkbox" onChange={props.handleFriday}></input>
+          <input type="checkbox" name="friday" onChange={props.handleDay}></input>
           <label>Friday</label>
-          <input type="checkbox" onChange={props.handleSaturday}></input>
+          <input type="checkbox" name="saturday" onChange={props.handleDay}></input>
           <label>Saturday</label>
         </div>
         <input type="submit"></input>

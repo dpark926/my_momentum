@@ -60,45 +60,10 @@ class Alarm extends Component {
     })
   }
 
-  handleSunday = () => {
+  handleDay = (event) => {
+    let name = event.target.name
     this.setState({
-      sunday: !this.state.sunday
-    })
-  }
-
-  handleMonday = () => {
-    this.setState({
-      Monday: !this.state.Monday
-    })
-  }
-
-  handleTuesday = () => {
-    this.setState({
-      tuesday: !this.state.tuesday
-    })
-  }
-
-  handleWednesday = () => {
-    this.setState({
-      wednesday: !this.state.wednesday
-    })
-  }
-
-  handleThursday = () => {
-    this.setState({
-      thursday: !this.state.thursday
-    })
-  }
-
-  handleFriday = () => {
-    this.setState({
-      friday: !this.state.friday
-    })
-  }
-
-  handleSaturday = () => {
-    this.setState({
-      saturday: !this.state.saturday
+      [name]: event.target.checked
     })
   }
 
@@ -179,7 +144,7 @@ class Alarm extends Component {
             handleMinute={this.handleMinute}
             handleAM={this.handleAM}
             handleLabel={this.handleLabel}
-            handleSunday={this.handleSunday}
+            handleDay={this.handleDay}
           />
           <div>Hour: {this.state.hour}</div>
           <div>Minute: {this.state.minute}</div>
