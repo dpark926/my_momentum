@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SetTime () {
+function SetTime (props) {
   let hour = []
   let minute = []
 
@@ -22,39 +22,41 @@ function SetTime () {
 
   return (
     <div>
-      <select>
-        {hour}
-      </select>
-      <select>
-        <option value="0" id="min0">00</option>
-        {minute}
-      </select>
-      <select>
-        <option value="AM" id="AM">AM</option>
-        <option value="PM" id="PM">PM</option>
-      </select><br/><br/>
+      <form onSubmit={props.addToAlarm}>
+        <select onChange={props.handleHour}>
+          {hour}
+        </select>
+        <select onChange={props.handleMinute}>
+          <option value="0" id="min0">00</option>
+          {minute}
+        </select>
+        <select onChange={props.handleAM}>
+          <option value="AM" id="AM">AM</option>
+          <option value="PM" id="PM">PM</option>
+        </select><br/><br/>
 
-      <div>Label</div>
-      <input type="text"></input><br/><br/>
+        <div>Label</div>
+        <input type="text" onChange={props.handleLabel}></input><br/><br/>
 
-      <div>Repeat</div>
-      <div>
-        <input type="checkbox"></input>
-        <label>Sunday</label>
-        <input type="checkbox"></input>
-        <label>Monday</label>
-        <input type="checkbox"></input>
-        <label>Tuesday</label>
-        <input type="checkbox"></input>
-        <label>Wednesday</label>
-        <input type="checkbox"></input>
-        <label>Thursday</label>
-        <input type="checkbox"></input>
-        <label>Friday</label>
-        <input type="checkbox"></input>
-        <label>Saturday</label>
-      </div>
-      <input type="submit"></input>
+        <div>Repeat</div>
+        <div>
+          <input type="checkbox" onChange={props.handleSunday}></input>
+          <label>Sunday</label>
+          <input type="checkbox" onChange={props.handleMonday}></input>
+          <label>Monday</label>
+          <input type="checkbox" onChange={props.handleTuesday}></input>
+          <label>Tuesday</label>
+          <input type="checkbox" onChange={props.handleWednesday}></input>
+          <label>Wednesday</label>
+          <input type="checkbox" onChange={props.handleThursday}></input>
+          <label>Thursday</label>
+          <input type="checkbox" onChange={props.handleFriday}></input>
+          <label>Friday</label>
+          <input type="checkbox" onChange={props.handleSaturday}></input>
+          <label>Saturday</label>
+        </div>
+        <input type="submit"></input>
+      </form>
     </div>
   )
 }
