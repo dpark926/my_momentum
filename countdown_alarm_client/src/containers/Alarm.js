@@ -7,7 +7,7 @@ class Alarm extends Component {
 
     this.state = {
       setTime: false,
-      hour: 0,
+      hour: 7,
       minute: 0,
       am: true,
       label: '',
@@ -62,64 +62,30 @@ class Alarm extends Component {
     })
   }
 
-  addToAlarm(event){
+  addToAlarm = (event) => {
     event.preventDefault()
-    // debugger
-    // fetch('http://localhost:3000/api/v1/alarms', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     time: 'yourValue',
-    //     label: 'yourOtherValue',
-    //     :time, :label, :am?, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday
-    //   })
-    // })
+    fetch('http://localhost:3000/api/v1/alarms', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        time: `${this.state.hour}:${this.state.minute}`,
+        label: this.state.label,
+        am: this.state.am,
+        sunday: this.state.sunday,
+        monday: this.state.monday,
+        tuesday: this.state.tuesday,
+        wednesday: this.state.wednesday,
+        thursday: this.state.thursday,
+        friday: this.state.friday,
+        saturday: this.state.saturday,
+      })
+    })
+    .then( res => res.json() )
+    .then( data => this.setState({alarmData: data}))
   }
-
-  // addToPlanner(){
-  //   window.location.reload()
-  //   // debugger
-  //   axios.post('http://localhost:3000/api/v1/planner_dates', {
-  //     planner_date: {
-  //       date: this.state.selectedDate,
-  //       user_id: localStorage.user_id,
-  //       recipe_id: this.state.clickedId,
-  //       recipe_name: this.state.clickedRecipe,
-  //       meal_type: this.state.selectedMealTime
-  //     }
-  //   }).then(res => {
-  //     console.log(res.planner)
-  //     localStorage.setItem("planner", res.data)
-  //   }).then( () => this.props.history.push('/recipes'))
-  //     .catch((error) => console.log(error.response) )
-  //
-  //   // fetch('http://localhost:3000/api/v1/planner_dates')
-  //   // .then(response => response.json())
-  //   // .then(jsonResponse => this.setState({
-  //   //   plannerData: jsonResponse.planner_dates
-  //   // }))
-  // }
-  //
-  // deletePlannerDate(id){
-  //   window.location.reload()
-  //   return fetch(`http://localhost:3000/api/v1/planner_dates/${id}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'Authorization': localStorage.getItem('token')
-  //     },
-  //   }).then( res => res.json() )
-  //
-  //   // fetch(`http://localhost:3000/api/v1/planner_dates/${id}`)
-  //   // .then(response => response.json())
-  //   // .then(jsonResponse => this.setState({
-  //   //   plannerData: jsonResponse.planner_dates
-  //   // }))
-  // }
 
   render = () => {
     if (!this.state.setTime) {
@@ -136,12 +102,11 @@ class Alarm extends Component {
           <SetTime
             addToAlarm={this.addToAlarm}
             handleTime={this.handleTime}
-            // handleMinute={this.handleMinute}
             handleAM={this.handleAM}
             handleLabel={this.handleLabel}
             handleDay={this.handleDay}
           />
-          <div>Hour: {this.state.hour}</div>
+          {/* <div>Hour: {this.state.hour}</div>
           <div>Minute: {this.state.minute}</div>
           <div>AM/PM: {this.state.am}</div>
           <div>Label: {this.state.label}</div>
@@ -151,7 +116,7 @@ class Alarm extends Component {
           <div>Wednesday: {this.state.wednesday}</div>
           <div>Thursday: {this.state.thursday}</div>
           <div>Friday: {this.state.friday}</div>
-          <div>Saturday: {this.state.saturday}</div>
+          <div>Saturday: {this.state.saturday}</div> */}
         </div>
       )
     }

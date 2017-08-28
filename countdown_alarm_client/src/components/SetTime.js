@@ -6,7 +6,11 @@ function SetTime (props) {
 
   for (var i = 1; i <= 12; i++) {
     if (i < 10) {
-      hour.push(<option value={i} id={`min${i}`}>{`0${i}`}</option>)
+      if (i === 7) {
+        hour.push(<option value={i} id={`min${i}`} selected="selected">{`0${i}`}</option>)
+      } else {
+        hour.push(<option value={i} id={`min${i}`}>{`0${i}`}</option>)
+      }    
     } else {
       hour.push(<option value={i} id={`min${i}`}>{i}</option>)
     }
