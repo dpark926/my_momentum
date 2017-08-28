@@ -11,6 +11,6 @@ class Api::V1::AlarmsController < ApplicationController
 
   private
   def alarm_params
-    params.require(:alarm).permit(:time, :label, :am?, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday)
+    params.require(:alarm).permit(:time, :label, :am, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday)
   end
 end

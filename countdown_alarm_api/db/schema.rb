@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825035527) do
+ActiveRecord::Schema.define(version: 20170827234836) do
 
   create_table "alarms", force: :cascade do |t|
     t.string  "time"
     t.string  "label"
-    t.boolean "am?"
+    t.boolean "am"
     t.boolean "sunday"
     t.boolean "monday"
     t.boolean "tuesday"
