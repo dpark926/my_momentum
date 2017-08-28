@@ -33,9 +33,10 @@ class Alarm extends Component {
 
     fetch(URL)
     .then(response => response.json())
-    .then(jsonResponse => this.setState({
-      alarmData: jsonResponse
+    .then(data => this.setState({
+      alarmData: data
     }))
+    // console.log(this.state.alarmData)
   }
 
   handleTime = (event) => {
@@ -84,15 +85,43 @@ class Alarm extends Component {
       })
     })
     .then( res => res.json() )
-    .then( data => this.setState({alarmData: data}))
+    .then( data => this.setState({
+      alarmData: data,
+      hour: 7,
+      minute: 0,
+      am: true,
+      label: '',
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    }))
   }
 
+  // showAlarmData = () => {
+  //   console.log(this.state.alarmData)
+  // }
+
   render = () => {
+    let alarms = (this.state.alarmData).map( alarm => {
+      return (
+        <div>
+          <div>{alarm.label}</div>
+          <div>{alarm.time}{alarm.am}</div>
+        </div>
+      )
+    })
+
     if (!this.state.setTime) {
       return (
         <div>
           <h1>Alarm</h1>
+          {alarms}
           <a href="#" onClick={this.handleClick}>+ Add Alarm</a>
+          {/* <div onClick={this.showAlarmData}>Show Alarm Data</div> */}
         </div>
       )
     } else {

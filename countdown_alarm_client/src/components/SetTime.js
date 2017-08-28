@@ -10,7 +10,7 @@ function SetTime (props) {
         hour.push(<option value={i} id={`min${i}`} selected="selected">{`0${i}`}</option>)
       } else {
         hour.push(<option value={i} id={`min${i}`}>{`0${i}`}</option>)
-      }    
+      }
     } else {
       hour.push(<option value={i} id={`min${i}`}>{i}</option>)
     }
@@ -42,7 +42,7 @@ function SetTime (props) {
         <div>Label</div>
         <input type="text" onChange={props.handleLabel}></input><br/><br/>
 
-        <div>Repeat</div>
+        <div>Repeat</div><br/>
         <div>
           <input type="checkbox" name="sunday" onChange={props.handleDay}></input>
           <label>Sunday</label>
@@ -58,7 +58,7 @@ function SetTime (props) {
           <label>Friday</label>
           <input type="checkbox" name="saturday" onChange={props.handleDay}></input>
           <label>Saturday</label>
-        </div>
+        </div><br/>
         <input type="submit"></input>
       </form>
     </div>
