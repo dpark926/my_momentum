@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SetTime from '../components/SetTime.js'
+import TimeDate from './TimeDate.js'
 import '../styles/Alarm.css'
 
 class Alarm extends Component {
@@ -132,9 +133,9 @@ class Alarm extends Component {
 
       return (
         <div className="alarm-box">
-          <div className="label">{alarm.label}</div>
-          <div className="time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
-          <div className="on-off-toggle">On/Off</div>
+          <div className="alarm-label">{alarm.label}</div>
+          <div className="alarm-time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
+          {}<div className="on-off-toggle">On/Off</div>
           <div className="change-alarm-button">Change</div>
           <div className="delete-alarm-button">Delete</div>
         </div>
@@ -145,6 +146,7 @@ class Alarm extends Component {
       return (
         <div>
           <h1>Alarm</h1>
+          <TimeDate/>
           {alarms}
           <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a>
           {/* <div onClick={this.showAlarmData}>Show Alarm Data</div> */}
@@ -154,6 +156,7 @@ class Alarm extends Component {
       return (
         <div>
           <h1>Alarm</h1>
+          <TimeDate/>
           <SetTime
             addToAlarm={this.addToAlarm}
             handleTime={this.handleTime}

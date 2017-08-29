@@ -6,12 +6,12 @@
   display: inline-block;
 }
 
-.label {
+.alarm-label {
   margin: 10px;
   border: 1px solid black;
 }
 
-.time {
+.alarm-time {
   margin: 10px;
   font-size: 40px;
   border: 1px solid black;
