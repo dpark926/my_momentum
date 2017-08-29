@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SetTime from '../components/SetTime.js'
+import '../styles/Alarm.css'
 
 class Alarm extends Component {
   constructor () {
@@ -87,17 +88,17 @@ class Alarm extends Component {
     .then( res => res.json() )
     .then( data => this.setState({
       alarmData: data,
-      hour: 7,
-      minute: 0,
-      am: true,
-      label: '',
-      sunday: false,
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
+      // hour: 7,
+      // minute: 0,
+      // am: true,
+      // label: '',
+      // sunday: false,
+      // monday: false,
+      // tuesday: false,
+      // wednesday: false,
+      // thursday: false,
+      // friday: false,
+      // saturday: false,
     }))
   }
 
@@ -105,12 +106,37 @@ class Alarm extends Component {
   //   console.log(this.state.alarmData)
   // }
 
+  deleteAlarm = () => {
+
+  }
+
   render = () => {
     let alarms = (this.state.alarmData).map( alarm => {
+      let splitTime = alarm.time.split(":")
+      let hour = splitTime[0];
+      let minute = splitTime[1];
+      let newHour = ''
+      let newMinute = ''
+
+      if (hour < 10) {
+        newHour = "0" + hour
+      } else {
+        newHour = hour
+      }
+
+      if (minute < 10) {
+        newMinute = "0" + minute
+      } else {
+        newMinute = minute
+      }
+
       return (
-        <div>
-          <div>{alarm.label}</div>
-          <div>{alarm.time}{alarm.am}</div>
+        <div className="alarm-box">
+          <div className="label">{alarm.label}</div>
+          <div className="time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
+          <div className="on-off-toggle">On/Off</div>
+          <div className="change-alarm-button">Change</div>
+          <div className="delete-alarm-button">Delete</div>
         </div>
       )
     })
@@ -120,7 +146,7 @@ class Alarm extends Component {
         <div>
           <h1>Alarm</h1>
           {alarms}
-          <a href="#" onClick={this.handleClick}>+ Add Alarm</a>
+          <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a>
           {/* <div onClick={this.showAlarmData}>Show Alarm Data</div> */}
         </div>
       )

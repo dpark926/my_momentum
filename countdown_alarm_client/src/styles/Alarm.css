@@ -1,0 +1,49 @@
+.alarm-box {
+  border: 1px solid blue;
+  margin: 20px;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+}
+
+.label {
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.time {
+  margin: 10px;
+  font-size: 40px;
+  border: 1px solid black;
+}
+
+.am {
+  font-size: 20px;
+}
+
+.on-off-toggle {
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.change-alarm-button {
+  margin: 10px;
+  border: 1px solid green;
+  color: white;
+  background-color: black;
+}
+
+.change-alarm-button:hover {
+  background-color: gray;
+}
+
+.delete-alarm-button {
+  margin: 10px;
+  border: 1px solid pink;
+  color: white;
+  background-color: black;
+}
+
+.delete-alarm-button:hover {
+  background-color: gray;
+}
