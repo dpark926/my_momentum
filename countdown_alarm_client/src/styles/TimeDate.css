@@ -1,4 +1,13 @@
+.timedate-wrapper {
+  /*border: 1px solid black;*/
+  margin: 20px;
+}
+
 .counting-time {
-  border: 1px solid red;
-  font-size: 50px;
+  /*border: 1px solid red;*/
+  font-size: 100px;
+}
+
+.timedate-date {
+  font-size: 20px;
 }

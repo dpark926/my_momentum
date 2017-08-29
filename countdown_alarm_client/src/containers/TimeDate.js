@@ -14,14 +14,12 @@ class TimeDate extends Component {
       year: d.getFullYear(),
       hour: d.getHours(),
       minute: d.getMinutes(),
-      second: d.getSeconds(),
-      time: d.toLocaleTimeString(),
+      // second: d.getSeconds(),
+      // time: d.toLocaleTimeString(),
     }
-
-    this.countingSecond = this.countingSecond.bind(this)
   }
 
-  countingSecond() {
+  countingMinute = () => {
     let d = new Date()
     this.setState({
       day: d.getDay(),
@@ -30,24 +28,24 @@ class TimeDate extends Component {
       year: d.getFullYear(),
       hour: d.getHours(),
       minute: d.getMinutes(),
-      second: d.getSeconds(),
-      milliseconds: d.getMilliseconds(),
-      time: d.toLocaleTimeString()
+      // second: d.getSeconds(),
+      // milliseconds: d.getMilliseconds(),
+      // time: d.toLocaleTimeString()
     })
   }
 
-  componentWillMount() {
-    setInterval(this.countingSecond, 1000)
+  componentWillMount = () => {
+    setInterval(this.countingMinute, 60000)
   }
 
-  render() {
+  render = () => {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"]
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
     return (
-      <div className='timeclock-main'>
-        <h3 className='timeclock-text'>{days[this.state.day]}, {this.state.month}/{this.state.date}/{this.state.year}</h3>
-        <div className='counting-time'>{this.state.time}</div>
+      <div className='timedate-wrapper'>
+        <div className='counting-time'>{this.state.hour % 12}:{this.state.minute < 10 ? "0" + this.state.minute : this.state.minute}<span className="am">{this.state.hour < 13 ? "AM" : "PM"}</span></div>
+        <div className='timedate-date'>{days[this.state.day]}, {months[this.state.month]} {this.state.date}, {this.state.year}</div>
       </div>
     )
   }
