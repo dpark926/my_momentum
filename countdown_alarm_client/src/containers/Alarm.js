@@ -87,7 +87,8 @@ class Alarm extends Component {
     })
     .then( res => res.json() )
     .then( data => this.setState({
-      alarmData: data,
+      alarmData: this.state.alarmData.concat([data]),
+
       // hour: 7,
       // minute: 0,
       // am: true,
@@ -141,7 +142,18 @@ class Alarm extends Component {
       return (
         <div className="alarm-box">
           <div className="alarm-label">{alarm.label}</div>
-          <div className="alarm-time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
+          <div className="alarm-time-day-wrapper">
+            <div className="alarm-time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
+            <div className="active-day-wrapper">
+              {alarm.sunday ? <div className="active-day">S</div> : <div className="inactive-day">S</div>}
+              {alarm.monday ? <div className="active-day">M</div> : <div className="inactive-day">M</div>}
+              {alarm.tuesday ? <div className="active-day">T</div> : <div className="inactive-day">T</div>}
+              {alarm.wednesday ? <div className="active-day">W</div> : <div className="inactive-day">W</div>}
+              {alarm.thursday ? <div className="active-day">T</div> : <div className="inactive-day">T</div>}
+              {alarm.friday ? <div className="active-day">F</div> : <div className="inactive-day">F</div>}
+              {alarm.saturday ? <div className="active-day">S</div> : <div className="inactive-day">S</div>}
+            </div>
+          </div>
           <div className="on-off-toggle">On/Off</div>
           <div className="change-alarm-button">Change</div>
           <div onClick={() => this.deleteAlarm(id)} className="delete-alarm-button">Delete</div>

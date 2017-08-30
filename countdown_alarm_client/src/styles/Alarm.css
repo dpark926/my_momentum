@@ -3,7 +3,7 @@
   border-radius: 10px;
   margin: 20px;
   width: 200px;
-  height: 200px;
+  height: 100%;
   display: inline-block;
 }
 
@@ -12,10 +12,32 @@
   border: 1px solid black;
 }
 
-.alarm-time {
+.alarm-time-day-wrapper {
   margin: 10px;
-  font-size: 40px;
   border: 1px solid black;
+}
+
+.alarm-time {
+  /*margin: 10px;*/
+  font-size: 40px;
+  /*border: 1px solid black;*/
+}
+
+.active-day-wrapper {
+  display: inline-block;
+  /*border: 1px solid red;*/
+}
+
+.active-day {
+  /*border: 1px solid blue;*/
+  padding: 5px;
+  color: red;
+  display: inline-block;
+}
+
+.inactive-day {
+  padding: 5px;
+  display: inline-block;
 }
 
 .am {
