@@ -9,6 +9,12 @@ class Api::V1::AlarmsController < ApplicationController
     render json: alarm
   end
 
+  def destroy
+    alarm = Alarm.find(params[:id])
+    alarm.destroy
+    render json: alarm
+  end
+
   private
   def alarm_params
     params.require(:alarm).permit(:time, :label, :am, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday)

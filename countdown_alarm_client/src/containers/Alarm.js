@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SetTime from '../components/SetTime.js'
-import TimeDate from './TimeDate.js'
 import '../styles/Alarm.css'
 
 class Alarm extends Component {
@@ -107,8 +106,15 @@ class Alarm extends Component {
   //   console.log(this.state.alarmData)
   // }
 
-  deleteAlarm = () => {
-
+  deleteAlarm = (id) => {
+    return fetch(`http://localhost:3000/api/v1/alarms/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        // 'Authorization': localStorage.getItem('token')
+      },
+    }).then( res => res.json() )
   }
 
   render = () => {
@@ -116,6 +122,7 @@ class Alarm extends Component {
       let splitTime = alarm.time.split(":")
       let hour = splitTime[0];
       let minute = splitTime[1];
+      let id = alarm.id
       let newHour = ''
       let newMinute = ''
 
@@ -135,9 +142,9 @@ class Alarm extends Component {
         <div className="alarm-box">
           <div className="alarm-label">{alarm.label}</div>
           <div className="alarm-time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
-          {}<div className="on-off-toggle">On/Off</div>
+          <div className="on-off-toggle">On/Off</div>
           <div className="change-alarm-button">Change</div>
-          <div className="delete-alarm-button">Delete</div>
+          <div onClick={() => this.deleteAlarm(id)} className="delete-alarm-button">Delete</div>
         </div>
       )
     })
@@ -146,7 +153,6 @@ class Alarm extends Component {
       return (
         <div>
           <h1>Alarm</h1>
-          <TimeDate/>
           {alarms}
           <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a>
           {/* <div onClick={this.showAlarmData}>Show Alarm Data</div> */}
@@ -156,7 +162,6 @@ class Alarm extends Component {
       return (
         <div>
           <h1>Alarm</h1>
-          <TimeDate/>
           <SetTime
             addToAlarm={this.addToAlarm}
             handleTime={this.handleTime}

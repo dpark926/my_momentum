@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar.js'
+import TimeDate from './containers/TimeDate.js'
 import Weather from './containers/Weather.js'
 import Alarm from './containers/Alarm.js'
 import WorldClock from './containers/WorldClock.js'
@@ -21,6 +22,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p> */}
         <NavBar/>
+        <Route exact path="/" component={TimeDate}/>
+        {/* <TimeDate/> */}
         <Route path="/weather" component={Weather}/>
         <Route path="/alarm" component={Alarm}/>
         <Route path="/worldclock" component={WorldClock}/>

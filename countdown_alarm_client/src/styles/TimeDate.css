@@ -1,6 +1,11 @@
 .timedate-wrapper {
   /*border: 1px solid black;*/
   margin: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
 }
 
 .counting-time {
@@ -10,4 +15,9 @@
 
 .timedate-date {
   font-size: 20px;
+}
+
+.alarm-greeting {
+  margin: 20px;
+  font-size: 50px;
 }
