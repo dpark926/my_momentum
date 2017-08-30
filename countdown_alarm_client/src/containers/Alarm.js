@@ -37,7 +37,6 @@ class Alarm extends Component {
     .then(data => this.setState({
       alarmData: data
     }))
-    // console.log(this.state.alarmData)
   }
 
   handleTime = (event) => {
@@ -88,24 +87,9 @@ class Alarm extends Component {
     .then( res => res.json() )
     .then( data => this.setState({
       alarmData: this.state.alarmData.concat([data]),
-
-      // hour: 7,
-      // minute: 0,
-      // am: true,
-      // label: '',
-      // sunday: false,
-      // monday: false,
-      // tuesday: false,
-      // wednesday: false,
-      // thursday: false,
-      // friday: false,
-      // saturday: false,
+      setTime: !this.state.setTime,
     }))
   }
-
-  // showAlarmData = () => {
-  //   console.log(this.state.alarmData)
-  // }
 
   deleteAlarm = (id) => {
     return fetch(`http://localhost:3000/api/v1/alarms/${id}`, {
@@ -115,7 +99,20 @@ class Alarm extends Component {
         'Content-Type': 'application/json',
         // 'Authorization': localStorage.getItem('token')
       },
-    }).then( res => res.json() )
+    })
+    .then( res => res.json() )
+    // .then(
+    //   fetch('http://localhost:3000/api/v1/alarms')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({
+    //     alarmData: data
+    //   }))
+    //
+    // )
+
+    // .then( data => this.setState({
+    //   setTime: !this.state.setTime,
+    // }))
   }
 
   render = () => {
@@ -167,7 +164,6 @@ class Alarm extends Component {
           <h1>Alarm</h1>
           {alarms}
           <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a>
-          {/* <div onClick={this.showAlarmData}>Show Alarm Data</div> */}
         </div>
       )
     } else {
@@ -181,17 +177,6 @@ class Alarm extends Component {
             handleLabel={this.handleLabel}
             handleDay={this.handleDay}
           />
-          {/* <div>Hour: {this.state.hour}</div>
-          <div>Minute: {this.state.minute}</div>
-          <div>AM/PM: {this.state.am}</div>
-          <div>Label: {this.state.label}</div>
-          <div>Sunday: {this.state.sunday}</div>
-          <div>Mondy: {this.state.monday}</div>
-          <div>Tuesday: {this.state.tuesday}</div>
-          <div>Wednesday: {this.state.wednesday}</div>
-          <div>Thursday: {this.state.thursday}</div>
-          <div>Friday: {this.state.friday}</div>
-          <div>Saturday: {this.state.saturday}</div> */}
         </div>
       )
     }
