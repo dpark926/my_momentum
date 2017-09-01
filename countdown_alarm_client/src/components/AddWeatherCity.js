@@ -1,11 +1,13 @@
 import React from 'react'
 
-function AddWeatherCity () {
+function AddWeatherCity (props) {
   return (
     <div>
-      <input type="text" placeholder="Add City"></input>
-      <input type="submit" value="+"></input>
-      {/* <p>Hello weather</p> */}
+      <form onSubmit={props.addToWeather}>
+        <input type="text" onChange={props.handleInput} placeholder="Add City"></input>
+        <input type="submit" value="+"></input>
+        {/* <p>Hello weather</p> */}
+      </form>
     </div>
   )
 }
