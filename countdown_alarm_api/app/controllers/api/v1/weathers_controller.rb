@@ -17,6 +17,6 @@ class Api::V1::WeathersController < ApplicationController
 
   private
   def weather_params
-    params.require(:weather).permit(:zipcode)
+    params.require(:weather).permit(:city)
   end
 end
