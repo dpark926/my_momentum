@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170827234836) do
+ActiveRecord::Schema.define(version: 20170831055438) do
 
   create_table "alarms", force: :cascade do |t|
     t.string  "time"
@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(version: 20170827234836) do
     t.boolean "thursday"
     t.boolean "friday"
     t.boolean "saturday"
+  end
+
+  create_table "weathers", force: :cascade do |t|
+    t.string "city"
   end
 
 end
