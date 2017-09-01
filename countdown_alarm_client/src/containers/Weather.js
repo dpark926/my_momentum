@@ -9,6 +9,7 @@ class Weather extends Component {
       addCity: false,
       input: '',
       weatherData: [],
+      error: '',
     }
   }
 
@@ -18,27 +19,39 @@ class Weather extends Component {
     fetch(URL)
     .then(response => response.json())
     .then(data => this.setState({
-      weatherData: data
+      weatherData: data,
+      error: ''
     }))
   }
 
   addToWeather = (event) => {
     event.preventDefault()
-    fetch('http://localhost:3000/api/v1/weathers', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        city: this.state.input
+
+    if (/(^\d{5}$)|(^\d{5}-\d{4}$)/.test(parseInt(this.state.input))) {
+      fetch('http://localhost:3000/api/v1/weathers', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          city: this.state.input
+        })
       })
-    })
-    .then( res => res.json() )
-    .then( data => this.setState({
-      weatherData: this.state.weatherData.concat([data]),
-      addCity: !this.state.addCity,
-    }))
+      .then( res => res.json() )
+      .then( data => this.setState({
+        weatherData: this.state.weatherData.concat([data]),
+        addCity: !this.state.addCity,
+        input: '',
+        error: '',
+      }))
+    } else {
+      this.setState({
+        error: "Please enter a valid zip code",
+        input: ''
+      })
+      document.getElementById("weather-form").reset()
+    }
   }
 
   handleClick = () => {
@@ -107,8 +120,9 @@ class Weather extends Component {
       return (
         <div>
           <h1>Weather</h1>
-          <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather}/>
+          <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather} input={this.state.input}/>
           <div>Input: {this.state.input}</div>
+          <div>{this.state.error}</div>
         </div>
       )
     }
