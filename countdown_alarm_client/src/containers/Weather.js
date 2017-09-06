@@ -10,17 +10,26 @@ class Weather extends Component {
       input: '',
       weatherData: [],
       error: '',
+      extWeatherAPI: []
     }
   }
 
   componentWillMount = () => {
     const URL = 'http://localhost:3000/api/v1/weathers'
+    const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
+    const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
     fetch(URL)
     .then(response => response.json())
     .then(data => this.setState({
       weatherData: data,
       error: ''
+    }))
+
+    fetch(`${ROOT_URL}&q=${11101},us`)
+    .then(response => response.json())
+    .then(data => this.setState({
+      extWeatherAPI: data,
     }))
   }
 
@@ -54,6 +63,17 @@ class Weather extends Component {
     }
   }
 
+  deleteWeather = (id) => {
+    return fetch(`http://localhost:3000/api/v1/weathers/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then( res => res.json() )
+  }
+
   handleClick = () => {
     this.setState({
       addCity: !this.state.addCity,
@@ -67,53 +87,55 @@ class Weather extends Component {
   }
 
   render = () => {
-    // let weathers = (this.state.weatherData).map( weather => {
-    //   let splitTime = alarm.time.split(":")
-    //   let hour = splitTime[0];
-    //   let minute = splitTime[1];
-    //   let id = alarm.id
-    //   let newHour = ''
-    //   let newMinute = ''
-    //
-    //   if (hour < 10) {
-    //     newHour = "0" + hour
-    //   } else {
-    //     newHour = hour
-    //   }
-    //
-    //   if (minute < 10) {
-    //     newMinute = "0" + minute
-    //   } else {
-    //     newMinute = minute
-    //   }
-    //
-    //   return (
-    //     <div className="alarm-box">
-    //       <div className="alarm-label">{alarm.label}</div>
-    //       <div className="alarm-time-day-wrapper">
-    //         <div className="alarm-time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
-    //         <div className="active-day-wrapper">
-    //           {alarm.sunday ? <div className="active-day">S</div> : <div className="inactive-day">S</div>}
-    //           {alarm.monday ? <div className="active-day">M</div> : <div className="inactive-day">M</div>}
-    //           {alarm.tuesday ? <div className="active-day">T</div> : <div className="inactive-day">T</div>}
-    //           {alarm.wednesday ? <div className="active-day">W</div> : <div className="inactive-day">W</div>}
-    //           {alarm.thursday ? <div className="active-day">T</div> : <div className="inactive-day">T</div>}
-    //           {alarm.friday ? <div className="active-day">F</div> : <div className="inactive-day">F</div>}
-    //           {alarm.saturday ? <div className="active-day">S</div> : <div className="inactive-day">S</div>}
-    //         </div>
-    //       </div>
-    //       <div className="on-off-toggle">On/Off</div>
-    //       <div className="change-alarm-button">Change</div>
-    //       <div onClick={() => this.deleteAlarm(id)} className="delete-alarm-button">Delete</div>
-    //     </div>
-    //   )
-    // })
+    let weathers = (this.state.weatherData).map( weather => {
+      return (
+        <div>
+          <div>{weather.city}</div>
+          {/* <div className="change-alarm-button">Change</div> */}
+          <div onClick={() => this.deleteWeather(weather.id)} className="delete-weather-button">Delete</div>
+        </div>
+      )
+    })
+
+    // let list = json.list
+    let list = this.state.extWeatherAPI.list
+    console.log(list)
+    // debugger
+    let todaysDate = new Date()
+    // let arr = []
+    let todaysMin = 200
+    let todaysMax = 0
+
+    if (this.state.extWeatherAPI.length === 0) {
+      return null
+    } else {
+      for (let i = 0; i < list.length; i ++) {
+        let eachWeather = list[i]
+        let temp = eachWeather.main.temp
+        let minTemp = eachWeather.main.temp_min
+        let maxTemp = eachWeather.main.temp_max
+
+        if (todaysDate.toJSON().slice(0, 10) === eachWeather.dt_txt.slice(0, 10)) {
+          if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
+            todaysMin = Math.round(minTemp * 9/5 - 459.67)
+          }
+          if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
+            todaysMax = Math.round(maxTemp * 9/5 - 459.67)
+          }
+        }
+      }
+    }
 
     if (!this.state.addCity) {
+      console.log(this.state.extWeatherAPI)
       return (
         <div>
           <h1>Weather</h1>
           <a href="#" onClick={this.handleClick}>+ Add City</a>
+          {weathers}
+          <div>{todaysDate.toJSON().slice(0, 10)}</div>
+          <div>High: {todaysMax}&deg</div>
+          <div>Low: {todaysMin}&#8451;</div>
         </div>
       )
     } else {
