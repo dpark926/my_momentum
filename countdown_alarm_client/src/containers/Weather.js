@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AddWeatherCity from '../components/AddWeatherCity.js'
+import '../styles/Weather.css';
 
 class Weather extends Component {
   constructor () {
@@ -97,30 +98,86 @@ class Weather extends Component {
       )
     })
 
-    // let list = json.list
+    ////
     let list = this.state.extWeatherAPI.list
+    let fiveDates = []
+
+    if (this.state.extWeatherAPI.length === 0) {
+      return null
+    } else {
+      for (let i = 0; i < list.length; i ++) {
+        if (fiveDates.includes(list[i].dt_txt.slice(0, 10))) {
+          continue
+        } else {
+          fiveDates.push(list[i].dt_txt.slice(0, 10))
+        }
+      }
+    }
+
+    let fiveDayWeather = fiveDates.map( (date) => {
+      let todaysMin = 200
+      let todaysMax = 0
+
+      if (list.length === 0) {
+        return null
+      } else {
+        for (let i = 0; i < list.length; i ++) {
+          let eachWeather = list[i]
+          let temp = eachWeather.main.temp
+          let minTemp = eachWeather.main.temp_min
+          let maxTemp = eachWeather.main.temp_max
+
+          if (date === eachWeather.dt_txt.slice(0, 10)) {
+            if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
+              todaysMin = Math.round(minTemp * 9/5 - 459.67)
+              // fiveDay.push({date: todaysDate.toJSON().slice(0, 10), min: todaysMin})
+            }
+            if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
+              todaysMax = Math.round(maxTemp * 9/5 - 459.67)
+            }
+          }
+        }
+      }
+
+      return (
+        <div className="each-weather">
+          <div className="each-weather-date">{date}</div>
+          <div className="each-weather-temp">
+            <span className="each-weather-max">{todaysMax}</span> / <span className="each-weather-min">{todaysMin}</span>
+          </div>
+        </div>
+      )
+    })
+
+    // let list = json.list
     console.log(list)
     // debugger
     let todaysDate = new Date()
     // let arr = []
+    let todaysTemp = 0
+    let todaysDesc = ''
     let todaysMin = 200
     let todaysMax = 0
 
     if (this.state.extWeatherAPI.length === 0) {
       return null
     } else {
+      todaysTemp = Math.round(list[0].main.temp * 9/5 - 459.67)
+      todaysDesc = list[0].weather[0].description
       for (let i = 0; i < list.length; i ++) {
         let eachWeather = list[i]
-        let temp = eachWeather.main.temp
+        // let temp = eachWeather.main.temp
         let minTemp = eachWeather.main.temp_min
         let maxTemp = eachWeather.main.temp_max
 
         if (todaysDate.toJSON().slice(0, 10) === eachWeather.dt_txt.slice(0, 10)) {
           if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
             todaysMin = Math.round(minTemp * 9/5 - 459.67)
+            // todaysMin = Math.round(1.8 * (minTemp - 273) + 32)
           }
           if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
             todaysMax = Math.round(maxTemp * 9/5 - 459.67)
+            // todaysMax = Math.round(1.8 * (maxTemp - 273) + 32)
           }
         }
       }
@@ -133,9 +190,16 @@ class Weather extends Component {
           <h1>Weather</h1>
           <a href="#" onClick={this.handleClick}>+ Add City</a>
           {weathers}
-          <div>{todaysDate.toJSON().slice(0, 10)}</div>
-          <div>High: {todaysMax}&deg</div>
-          <div>Low: {todaysMin}&#8451;</div>
+          <div className='todaysWeather'>
+            <div>{todaysDate.toJSON().slice(0, 10)}</div>
+            <div>{todaysTemp}&#8457;</div>
+            <div>ICON</div>
+            <div>{todaysDesc}</div>
+            <div>L {todaysMin} / H {todaysMax}</div>
+            {/* <div>L{todaysMin}&#8457;</div>
+            <div>H{todaysMax}&#8457;</div> */}
+          </div>
+          {fiveDayWeather}
         </div>
       )
     } else {

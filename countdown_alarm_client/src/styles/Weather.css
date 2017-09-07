@@ -1,0 +1,24 @@
+.todaysWeather {
+  border: 1px solid black;
+  width: 200px;
+}
+
+.each-weather {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  display: inline-block;
+  margin: 10px;
+}
+
+.each-weather-date {
+  
+}
+
+.each-weather-min {
+  color: gray;
+}
+
+.each-weather-max {
+  color: black;
+}
