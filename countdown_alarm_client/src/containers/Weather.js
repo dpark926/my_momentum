@@ -12,7 +12,8 @@ class Weather extends Component {
       input: '',
       weatherData: [],
       error: '',
-      extWeatherAPI: []
+      extWeatherAPI: [],
+      zipCodeAPI: {}
     }
   }
 
@@ -33,6 +34,13 @@ class Weather extends Component {
     .then(data => this.setState({
       extWeatherAPI: data,
     }))
+
+    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=11101&sensor=true`)
+    .then(response => response.json())
+    .then(data => this.setState({
+      zipCodeAPI: data,
+    }))
+
   }
 
   addToWeather = (event) => {
@@ -139,6 +147,12 @@ class Weather extends Component {
             if (eachWeather.dt_txt.slice(11) === "12:00:00") {
               todaysDesc = eachWeather.weather[0].description
               todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+            } else if (eachWeather.dt_txt.slice(11) === "18:00:00") {
+              todaysDesc = eachWeather.weather[0].description
+              todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+            } else {
+              todaysDesc = eachWeather.weather[0].description
+              todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
             }
 
             if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
@@ -217,6 +231,7 @@ class Weather extends Component {
           <div className='todays-weather-wrapper'>
             <div className='todays-weather-date'>{todaysDate.toJSON().slice(0, 10)}</div>
             <div className='todays-weather-day'>{todaysDay}</div>
+            {this.state.zipCodeAPI.results[0].address_components[1].long_name}
             {/* <div>{todaysTemp}&#8457;</div> */}
             <div className='todays-weather-wrapper2'>
               <div className='todays-weather-icon'>{todaysDescIcon}</div>

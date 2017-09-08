@@ -3,11 +3,11 @@
 }
 
 .navbar-wrapper {
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 .navbar-link {
-  border: 1px solid green;
+  /*border: 1px solid green;*/
   display: inline-block;
   width: 180px;
   text-decoration: none;
@@ -18,7 +18,7 @@
 }
 
 .navbar-category {
-  border: 1px solid white;
+  /*border: 1px solid white;*/
   color: white;
   padding: 10px 40px;
 
