@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddWeatherCity from '../components/AddWeatherCity.js'
 import '../styles/Weather.css';
+import WeatherIcons from 'react-weathericons';
 
 class Weather extends Component {
   constructor () {
@@ -120,6 +121,7 @@ class Weather extends Component {
       let todaysDesc = ''
       let todaysDay = ''
       let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      let todaysDescIcon = ''
 
       if (list.length === 0) {
         return null
@@ -136,6 +138,7 @@ class Weather extends Component {
             todaysDay = days[thisDay.getDay()]
             if (eachWeather.dt_txt.slice(11) === "12:00:00") {
               todaysDesc = eachWeather.weather[0].description
+              todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
             }
 
             if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
@@ -152,10 +155,11 @@ class Weather extends Component {
       return (
         <div className="each-weather">
           <div className="each-weather-date">{date}</div>
+          <div className="each-weather-day">{todaysDay}</div>
+          <div className="each-weather-icon">{todaysDescIcon}</div>
           <div className="each-weather-desc">{todaysDesc}</div>
-          <div>{todaysDay}</div>
           <div className="each-weather-temp">
-            <span className="each-weather-max">{todaysMax}</span> / <span className="each-weather-min">{todaysMin}</span>
+            <span className="each-weather-max">{todaysMax}°</span> / <span className="each-weather-min">{todaysMin}°</span>
           </div>
         </div>
       )
@@ -170,6 +174,9 @@ class Weather extends Component {
     let todaysDesc = ''
     let todaysMin = 200
     let todaysMax = 0
+    let todaysDay = ''
+    let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    let todaysDescIcon = ''
 
     if (this.state.extWeatherAPI.length === 0) {
       return null
@@ -183,6 +190,11 @@ class Weather extends Component {
         let maxTemp = eachWeather.main.temp_max
 
         if (todaysDate.toJSON().slice(0, 10) === eachWeather.dt_txt.slice(0, 10)) {
+          var thisDay = new Date()
+          todaysDay = days[thisDay.getDay()]
+          todaysDesc = (eachWeather.weather[0].description)
+          todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+
           if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
             todaysMin = Math.round(minTemp * 9/5 - 459.67)
             // todaysMin = Math.round(1.8 * (minTemp - 273) + 32)
@@ -202,12 +214,14 @@ class Weather extends Component {
           <h1>Weather</h1>
           <a href="#" onClick={this.handleClick}>+ Add City</a>
           {weathers}
-          <div className='todaysWeather'>
-            <div>{todaysDate.toJSON().slice(0, 10)}</div>
-            <div>{todaysTemp}&#8457;</div>
-            <div>ICON</div>
-            <div>{todaysDesc}</div>
-            <div>L {todaysMin} / H {todaysMax}</div>
+          <div className='todays-weather-wrapper'>
+            <div className='todays-weather-date'>{todaysDate.toJSON().slice(0, 10)}</div>
+            <div className='todays-weather-day'>{todaysDay}</div>
+            {/* <div>{todaysTemp}&#8457;</div> */}
+            <div className='todays-weather-temp'>{todaysTemp}°</div>
+            <div className='todays-weather-icon'>{todaysDescIcon}</div>
+            <div className='todays-weather-desc'>{todaysDesc}</div>
+            <div className='todays-weather-highlow'>L {todaysMin}° / H {todaysMax}°</div>
             {/* <div>L{todaysMin}&#8457;</div>
             <div>H{todaysMax}&#8457;</div> */}
           </div>

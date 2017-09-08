@@ -1,6 +1,31 @@
-.todaysWeather {
+.todays-weather-wrapper {
+  margin: auto;
   border: 1px solid black;
-  width: 200px;
+  /*width: 200px;*/
+}
+
+.todays-weather-date {
+
+}
+
+.todays-weather-day {
+  font-size: 3em;
+}
+
+.todays-weather-temp {
+  font-size: 6em;
+}
+
+.todays-weather-icon img {
+  height: 6em;
+}
+
+.todays-weather-desc {
+ font-size: 1.5em;
+}
+
+.todays-weather-highlow {
+
 }
 
 .each-weather {
@@ -21,4 +46,8 @@
 
 .each-weather-max {
   color: black;
+}
+
+.each-weather-icon img {
+  height: 6em;
 }
