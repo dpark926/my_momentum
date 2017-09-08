@@ -135,7 +135,7 @@ class Weather extends Component {
           if (date === eachWeather.dt_txt.slice(0, 10)) {
             // console.log(eachWeather.dt_txt.getDay())
             var thisDay = new Date(date)
-            todaysDay = days[thisDay.getDay()]
+            todaysDay = days[thisDay.getDay()].toUpperCase()
             if (eachWeather.dt_txt.slice(11) === "12:00:00") {
               todaysDesc = eachWeather.weather[0].description
               todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
@@ -158,8 +158,8 @@ class Weather extends Component {
           <div className="each-weather-day">{todaysDay}</div>
           <div className="each-weather-icon">{todaysDescIcon}</div>
           <div className="each-weather-desc">{todaysDesc}</div>
-          <div className="each-weather-temp">
-            <span className="each-weather-max">{todaysMax}°</span> / <span className="each-weather-min">{todaysMin}°</span>
+          <div className="temp each-weather-temp">
+            <span className="each-weather-min">L{todaysMin}°</span> / <span className="each-weather-max">H{todaysMax}°</span>
           </div>
         </div>
       )
@@ -175,7 +175,7 @@ class Weather extends Component {
     let todaysMin = 200
     let todaysMax = 0
     let todaysDay = ''
-    let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     let todaysDescIcon = ''
 
     if (this.state.extWeatherAPI.length === 0) {
@@ -210,7 +210,7 @@ class Weather extends Component {
     if (!this.state.addCity) {
       console.log(this.state.extWeatherAPI)
       return (
-        <div>
+        <div className='weather-app'>
           <h1>Weather</h1>
           <a href="#" onClick={this.handleClick}>+ Add City</a>
           {weathers}
@@ -218,14 +218,20 @@ class Weather extends Component {
             <div className='todays-weather-date'>{todaysDate.toJSON().slice(0, 10)}</div>
             <div className='todays-weather-day'>{todaysDay}</div>
             {/* <div>{todaysTemp}&#8457;</div> */}
-            <div className='todays-weather-temp'>{todaysTemp}°</div>
-            <div className='todays-weather-icon'>{todaysDescIcon}</div>
-            <div className='todays-weather-desc'>{todaysDesc}</div>
-            <div className='todays-weather-highlow'>L {todaysMin}° / H {todaysMax}°</div>
+            <div className='todays-weather-wrapper2'>
+              <div className='todays-weather-icon'>{todaysDescIcon}</div>
+              <div className='temp todays-weather-temp'>{todaysTemp}°</div>
+              <div className='todays-weather-wrapper3'>
+                <div className='todays-weather-desc'>{todaysDesc}</div>
+                <div className='temp todays-weather-highlow'>L{todaysMin}° / H{todaysMax}°</div>
+              </div>
+            </div>
             {/* <div>L{todaysMin}&#8457;</div>
             <div>H{todaysMax}&#8457;</div> */}
           </div>
-          {fiveDayWeather}
+          <div className="five-day-weather-wrapper">
+            {fiveDayWeather}
+          </div>
         </div>
       )
     } else {

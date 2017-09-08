@@ -1,7 +1,26 @@
+.weather-app {
+  margin: 0 10em;
+  font-family: 'Karla', sans-serif;
+}
+
+.temp {
+  font-family: 'Abel', sans-serif;
+  color: #8f8992;
+}
+
 .todays-weather-wrapper {
   margin: auto;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   /*width: 200px;*/
+}
+
+.todays-weather-wrapper2 {
+  display: flex;
+}
+
+.todays-weather-wrapper3 {
+  padding: 10px;
+  margin: auto 0;
 }
 
 .todays-weather-date {
@@ -9,35 +28,62 @@
 }
 
 .todays-weather-day {
-  font-size: 3em;
+  font-size: 2em;
 }
 
 .todays-weather-temp {
-  font-size: 6em;
+  /*width: 200px;*/
+  /*border: 1px solid red;*/
+  font-size: 5em;
+  display: block;
+}
+
+.todays-weather-icon {
+  /*border: 1px solid blue;*/
+  /*width: 200px;*/
+  display: block;
 }
 
 .todays-weather-icon img {
+  /*border: 1px solid red;*/
   height: 6em;
+  display: block;
 }
 
 .todays-weather-desc {
- font-size: 1.5em;
+  /*width: 200px;*/
+  /*border: 1px solid red;*/
+  font-size: 1.2em;
 }
 
 .todays-weather-highlow {
+  /*width: 200px;*/
+  /*border: 1px solid red;*/
+  font-size: 1.2em;
+  text-align: left;
+}
 
+.five-day-weather-wrapper {
+  border-top: 2px solid #c3c2c5;
+  margin-top: 20px;
+  padding-top: 20px;
 }
 
 .each-weather {
   height: 200px;
-  width: 200px;
-  border: 1px solid black;
+  width: 150px;
+  /*border: 1px solid black;*/
   display: inline-block;
-  margin: 10px;
+  margin: 20px;
 }
 
 .each-weather-date {
+  color: #8f8992;
+}
 
+.each-weather-day {
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .each-weather-min {
