@@ -117,6 +117,9 @@ class Weather extends Component {
     let fiveDayWeather = fiveDates.map( (date) => {
       let todaysMin = 200
       let todaysMax = 0
+      let todaysDesc = ''
+      let todaysDay = ''
+      let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
       if (list.length === 0) {
         return null
@@ -128,6 +131,13 @@ class Weather extends Component {
           let maxTemp = eachWeather.main.temp_max
 
           if (date === eachWeather.dt_txt.slice(0, 10)) {
+            // console.log(eachWeather.dt_txt.getDay())
+            var thisDay = new Date(date)
+            todaysDay = days[thisDay.getDay()]
+            if (eachWeather.dt_txt.slice(11) === "12:00:00") {
+              todaysDesc = eachWeather.weather[0].description
+            }
+
             if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
               todaysMin = Math.round(minTemp * 9/5 - 459.67)
               // fiveDay.push({date: todaysDate.toJSON().slice(0, 10), min: todaysMin})
@@ -142,6 +152,8 @@ class Weather extends Component {
       return (
         <div className="each-weather">
           <div className="each-weather-date">{date}</div>
+          <div className="each-weather-desc">{todaysDesc}</div>
+          <div>{todaysDay}</div>
           <div className="each-weather-temp">
             <span className="each-weather-max">{todaysMax}</span> / <span className="each-weather-min">{todaysMin}</span>
           </div>
