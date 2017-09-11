@@ -88,6 +88,7 @@
 
 .five-day-weather-wrapper {
   border-top: 2px solid #c3c2c5;
+  /*border-bottom: 2px solid #c3c2c5;*/
   margin-top: 20px;
   padding-top: 20px;
 }

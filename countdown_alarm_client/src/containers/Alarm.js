@@ -92,6 +92,10 @@ class Alarm extends Component {
   }
 
   deleteAlarm = (id) => {
+    let idRemoved = this.state.alarmData.filter(function(el) {
+      return el.id !== id;
+    });
+
     return fetch(`http://localhost:3000/api/v1/alarms/${id}`, {
       method: 'DELETE',
       headers: {
@@ -113,6 +117,9 @@ class Alarm extends Component {
     // .then( data => this.setState({
     //   setTime: !this.state.setTime,
     // }))
+    .then( data => this.setState({
+      alarmData: idRemoved,
+    }))
   }
 
   render = () => {

@@ -22,26 +22,48 @@ class Weather extends Component {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
+
     fetch(URL)
     .then(response => response.json())
     .then(data => this.setState({
       weatherData: data,
       error: ''
-    }))
+    },this.openWeatherCall))
 
-    fetch(`${ROOT_URL}&q=${11358},us`)
-    .then(response => response.json())
-    .then(data => this.setState({
-      extWeatherAPI: data,
-    }))
+    // fetch(`${ROOT_URL}&q=${11358},us`)
+    // .then(response => response.json())
+    // .then(data => this.setState({
+    //   extWeatherAPI: data,
+    // }))
 
-    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11358}&sensor=true`)
+    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11373}&sensor=true`)
     .then(response => response.json())
     .then(data => this.setState({
       zipCodeAPI: data,
     }))
 
   }
+
+  openWeatherCall = () => {
+    const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
+    const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
+
+    fetch(`${ROOT_URL}&q=${11101},us`)
+    .then(response => response.json())
+    .then(data => this.setState({
+      extWeatherAPI: data,
+    },this.zipCodeCall))
+    // console.log(this.state.weatherData)
+    // debugger
+  }
+
+  // zipCodeCall = () => {
+  //   fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11373}&sensor=true`)
+  //   .then(response => response.json())
+  //   .then(data => this.setState({
+  //     zipCodeAPI: data,
+  //   }))
+  // }
 
   addToWeather = (event) => {
     event.preventDefault()
@@ -74,6 +96,10 @@ class Weather extends Component {
   }
 
   deleteWeather = (id) => {
+    let idRemoved = this.state.weatherData.filter(function(el) {
+      return el.id !== id;
+    });
+
     return fetch(`http://localhost:3000/api/v1/weathers/${id}`, {
       method: 'DELETE',
       headers: {
@@ -82,6 +108,9 @@ class Weather extends Component {
       },
     })
     .then( res => res.json() )
+    .then( data => this.setState({
+      weatherData: idRemoved,
+    }))
   }
 
   handleClick = () => {
