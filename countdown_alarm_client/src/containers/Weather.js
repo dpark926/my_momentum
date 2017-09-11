@@ -29,13 +29,13 @@ class Weather extends Component {
       error: ''
     }))
 
-    fetch(`${ROOT_URL}&q=${11101},us`)
+    fetch(`${ROOT_URL}&q=${11358},us`)
     .then(response => response.json())
     .then(data => this.setState({
       extWeatherAPI: data,
     }))
 
-    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=11101&sensor=true`)
+    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11358}&sensor=true`)
     .then(response => response.json())
     .then(data => this.setState({
       zipCodeAPI: data,
@@ -102,7 +102,7 @@ class Weather extends Component {
         <div>
           <div>{weather.city}</div>
           {/* <div className="change-alarm-button">Change</div> */}
-          <div onClick={() => this.deleteWeather(weather.id)} className="delete-weather-button">Delete</div>
+          <div onClick={() => this.deleteWeather(weather.id)} className="delete-weather-button">DELETE</div>
         </div>
       )
     })
@@ -179,43 +179,34 @@ class Weather extends Component {
       )
     })
 
-    // let list = json.list
     console.log(list)
-    // debugger
-    let todaysDate = new Date()
-    // let arr = []
-    let todaysTemp = 0
-    let todaysDesc = ''
-    let todaysMin = 200
-    let todaysMax = 0
-    let todaysDay = ''
+    let nowDate = new Date()
+    let nowTemp = 0
+    let nowDesc = ''
+    let nowMin = 200
+    let nowMax = 0
+    let nowDay = ''
     let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    let todaysDescIcon = ''
+    let nowDescIcon = ''
 
     if (this.state.extWeatherAPI.length === 0) {
       return null
     } else {
-      todaysTemp = Math.round(list[0].main.temp * 9/5 - 459.67)
-      todaysDesc = list[0].weather[0].description
-      for (let i = 0; i < list.length; i ++) {
+      nowTemp = Math.round(list[0].main.temp * 9/5 - 459.67)
+      nowDesc = list[0].weather[0].description
+      nowDescIcon = <img src={`http://openweathermap.org/img/w/${list[0].weather[0].icon}.png`} alt={list[0].weather[0].icon}></img>
+
+      for (let i = 0; i < 5; i ++) {
         let eachWeather = list[i]
-        // let temp = eachWeather.main.temp
         let minTemp = eachWeather.main.temp_min
         let maxTemp = eachWeather.main.temp_max
 
-        if (todaysDate.toJSON().slice(0, 10) === eachWeather.dt_txt.slice(0, 10)) {
-          var thisDay = new Date()
-          todaysDay = days[thisDay.getDay()]
-          todaysDesc = (eachWeather.weather[0].description)
-          todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
-
-          if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
-            todaysMin = Math.round(minTemp * 9/5 - 459.67)
-            // todaysMin = Math.round(1.8 * (minTemp - 273) + 32)
+        if (list[0].dt_txt.slice(0, 10) === eachWeather.dt_txt.slice(0, 10)) {
+          if (nowMin > Math.round(minTemp * 9/5 - 459.67)) {
+            nowMin = Math.round(minTemp * 9/5 - 459.67)
           }
-          if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
-            todaysMax = Math.round(maxTemp * 9/5 - 459.67)
-            // todaysMax = Math.round(1.8 * (maxTemp - 273) + 32)
+          if (nowMax < Math.round(maxTemp * 9/5 - 459.67)) {
+            nowMax = Math.round(maxTemp * 9/5 - 459.67)
           }
         }
       }
@@ -225,20 +216,19 @@ class Weather extends Component {
       console.log(this.state.extWeatherAPI)
       return (
         <div className='weather-app'>
-          <h1>Weather</h1>
-          <a href="#" onClick={this.handleClick}>+ Add City</a>
-          {weathers}
+          {/* <h1>Weather</h1> */}
+
           <div className='todays-weather-wrapper'>
-            <div className='todays-weather-date'>{todaysDate.toJSON().slice(0, 10)}</div>
-            <div className='todays-weather-day'>{todaysDay}</div>
-            {this.state.zipCodeAPI.results[0].address_components[1].long_name}
+            {/* <div className='todays-weather-date'>{todaysDate.toJSON().slice(0, 10)}</div> */}
+            {/* <div className='todays-weather-day'>{todaysDay}</div> */}
+            <div className='todays-weather-town'>{(this.state.zipCodeAPI.results[0].address_components[1].long_name).toUpperCase()}</div>
             {/* <div>{todaysTemp}&#8457;</div> */}
             <div className='todays-weather-wrapper2'>
-              <div className='todays-weather-icon'>{todaysDescIcon}</div>
-              <div className='temp todays-weather-temp'>{todaysTemp}°</div>
+              <div className='todays-weather-icon'>{nowDescIcon}</div>
+              <div className='temp todays-weather-temp'>{nowTemp}°</div>
               <div className='todays-weather-wrapper3'>
-                <div className='todays-weather-desc'>{todaysDesc}</div>
-                <div className='temp todays-weather-highlow'>L{todaysMin}° / H{todaysMax}°</div>
+                <div className='todays-weather-desc'>{nowDesc}</div>
+                <div className='temp todays-weather-highlow'>L{nowMin}° / H{nowMax}°</div>
               </div>
             </div>
             {/* <div>L{todaysMin}&#8457;</div>
@@ -247,6 +237,9 @@ class Weather extends Component {
           <div className="five-day-weather-wrapper">
             {fiveDayWeather}
           </div>
+          <div className='todays-weather-city'><span>{`< `}</span> {(this.state.zipCodeAPI.results[0].address_components[2].long_name).toUpperCase()} <span>{` >`}</span></div>
+          {weathers}
+          <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
         </div>
       )
     } else {

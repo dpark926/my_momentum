@@ -1,6 +1,7 @@
 .weather-app {
-  margin: 0 10em;
+  margin: 3em 10em;
   font-family: 'Karla', sans-serif;
+  /*border: 1px solid pink;*/
 }
 
 .temp {
@@ -29,6 +30,28 @@
 
 .todays-weather-day {
   font-size: 2em;
+}
+
+.todays-weather-town {
+  padding: 0 15px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.todays-weather-city {
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.todays-weather-city span{
+  padding: 5px;
+}
+
+.todays-weather-addcity a {
+  color: #8f8992;
+  text-decoration: none;
 }
 
 .todays-weather-temp {
@@ -71,7 +94,7 @@
 
 .each-weather {
   height: 200px;
-  width: 120px;
+  width: 130px;
   /*border: 1px solid black;*/
   display: inline-block;
   margin: 20px;
