@@ -1,8 +1,17 @@
 .App {
   text-align: center;
-  /*background-image: url("./styles/imgs/billions-of-stars.jpg");
+  /*height: 100%;*/
+  height: 670px;
+  /*background-image: url("./styles/imgs/los-angeles-downtown-by-the-night.jpg");*/
+  background-color: #222;
+  background-image: url("http://wallpaper.pickywallpapers.com/1920x1080/lighting-camps.jpg");
+  /*background-image: url("http://wallpaper.pickywallpapers.com/1920x1080/breathtaking-mountains.jpg");*/
+  /*background-image: url("http://wallpaper.pickywallpapers.com/1920x1080/californian-nature.jpg");*/
+  /*background-image: url("http://cdn.pcwallart.com/images/ocean-water-waves-wallpaper-4.jpg");*/
+  color: white;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
-  color: white;*/
 }
 
 .App-logo {

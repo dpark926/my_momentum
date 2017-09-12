@@ -1,5 +1,6 @@
 .navbar {
-  background-color: black;
+  /*background-color: black;*/
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .navbar-wrapper {
@@ -14,7 +15,7 @@
 }
 
 .navbar-link:hover {
-  background-color: gray;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .navbar-category {

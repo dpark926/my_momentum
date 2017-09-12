@@ -28,7 +28,9 @@ class Weather extends Component {
     .then(data => this.setState({
       weatherData: data,
       error: ''
-    },this.openWeatherCall))
+    }))
+    .then(this.openWeatherCall)
+    .then(this.zipCodeCall)
 
     // fetch(`${ROOT_URL}&q=${11358},us`)
     // .then(response => response.json())
@@ -36,11 +38,11 @@ class Weather extends Component {
     //   extWeatherAPI: data,
     // }))
 
-    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11373}&sensor=true`)
-    .then(response => response.json())
-    .then(data => this.setState({
-      zipCodeAPI: data,
-    }))
+    // fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11373}&sensor=true`)
+    // .then(response => response.json())
+    // .then(data => this.setState({
+    //   zipCodeAPI: data,
+    // }))
 
   }
 
@@ -48,22 +50,23 @@ class Weather extends Component {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
-    fetch(`${ROOT_URL}&q=${11101},us`)
+    fetch(`${ROOT_URL}&q=${73303},us`)
     .then(response => response.json())
     .then(data => this.setState({
       extWeatherAPI: data,
-    },this.zipCodeCall))
+    }))
+
     // console.log(this.state.weatherData)
     // debugger
   }
 
-  // zipCodeCall = () => {
-  //   fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11373}&sensor=true`)
-  //   .then(response => response.json())
-  //   .then(data => this.setState({
-  //     zipCodeAPI: data,
-  //   }))
-  // }
+  zipCodeCall = () => {
+    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${73303}&sensor=true`)
+    .then(response => response.json())
+    .then(data => this.setState({
+      zipCodeAPI: data,
+    }))
+  }
 
   addToWeather = (event) => {
     event.preventDefault()
@@ -257,7 +260,7 @@ class Weather extends Component {
               <div className='temp todays-weather-temp'>{nowTemp}°</div>
               <div className='todays-weather-wrapper3'>
                 <div className='todays-weather-desc'>{nowDesc}</div>
-                <div className='temp todays-weather-highlow'>L{nowMin}° / H{nowMax}°</div>
+                <div className='temp todays-weather-highlow'>L{nowMin}° /<span className="todays-weather-high">H{nowMax}°</span></div>
               </div>
             </div>
             {/* <div>L{todaysMin}&#8457;</div>

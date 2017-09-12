@@ -22,6 +22,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p> */}
         <NavBar/>
+        <Redirect to='/'/>
         <Route exact path="/" component={TimeDate}/>
         {/* <TimeDate/> */}
         <Route path="/weather" component={Weather}/>

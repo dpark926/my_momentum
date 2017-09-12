@@ -145,7 +145,7 @@ class Alarm extends Component {
 
       return (
         <div className="alarm-box">
-          <div className="alarm-label">{alarm.label}</div>
+          <div className="alarm-label">{alarm.label.toUpperCase()}</div>
           <div className="alarm-time-day-wrapper">
             <div className="alarm-time">{newHour}:{newMinute}<span className="am">{alarm.am ? "AM" : "PM"}</span></div>
             <div className="active-day-wrapper">
@@ -158,8 +158,8 @@ class Alarm extends Component {
               {alarm.saturday ? <div className="active-day">S</div> : <div className="inactive-day">S</div>}
             </div>
           </div>
-          <div className="on-off-toggle">On/Off</div>
-          <div className="change-alarm-button">Change</div>
+          {/* <div className="on-off-toggle">On/Off</div> */}
+          {/* <div className="change-alarm-button">Change</div> */}
           <div onClick={() => this.deleteAlarm(id)} className="delete-alarm-button">Delete</div>
         </div>
       )
@@ -167,10 +167,11 @@ class Alarm extends Component {
 
     if (!this.state.setTime) {
       return (
-        <div>
+        <div className='alarm-wrapper'>
           <h1>Alarm</h1>
           {alarms}
-          <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a>
+          <div className="alarm-add-alarm">{this.state.alarmData.length < 5 ? <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a> : null}</div>
+
         </div>
       )
     } else {

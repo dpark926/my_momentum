@@ -1,7 +1,12 @@
+.alarm-wrapper {
+  font-family: 'Karla', sans-serif;
+
+}
+
 .alarm-box {
-  border: 1px solid blue;
+  border: 1px solid white;
   border-radius: 10px;
-  margin: 20px;
+  margin: 5% 20px;
   width: 200px;
   height: 100%;
   display: inline-block;
@@ -9,17 +14,26 @@
 
 .alarm-label {
   margin: 10px;
-  border: 1px solid black;
+  border: 1px solid white;
+}
+
+.alarm-add-alarm {
+  display: block;
+}
+
+.alarm-add-alarm a{
+  color: white;
 }
 
 .alarm-time-day-wrapper {
   margin: 10px;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 .alarm-time {
   /*margin: 10px;*/
   font-size: 40px;
+  font-family: 'Karla', sans-serif;
   /*border: 1px solid black;*/
 }
 

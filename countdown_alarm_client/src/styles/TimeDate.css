@@ -2,22 +2,29 @@
   /*border: 1px solid black;*/
   margin: 20px;
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
+  font-family: 'Abel', sans-serif;
 }
 
 .counting-time {
   /*border: 1px solid red;*/
-  font-size: 100px;
+  font-size: 140px;
+}
+
+.ampm {
+  font-size: 70px;
 }
 
 .timedate-date {
-  font-size: 20px;
+  font-size: 30px;
+  font-family: 'Karla', sans-serif;
 }
 
 .alarm-greeting {
   margin: 20px;
   font-size: 50px;
+  font-family: 'Abel', sans-serif;
 }
