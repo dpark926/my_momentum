@@ -168,7 +168,7 @@ class Alarm extends Component {
     if (!this.state.setTime) {
       return (
         <div className='alarm-wrapper'>
-          <h1>Alarm</h1>
+          <h1>ALARM</h1>
           {alarms}
           <div className="alarm-add-alarm">{this.state.alarmData.length < 5 ? <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a> : null}</div>
 
@@ -177,7 +177,7 @@ class Alarm extends Component {
     } else {
       return (
         <div>
-          <h1>Alarm</h1>
+          <h1>ALARM</h1>
           <SetTime
             addToAlarm={this.addToAlarm}
             handleTime={this.handleTime}

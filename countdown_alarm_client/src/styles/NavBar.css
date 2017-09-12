@@ -5,12 +5,14 @@
 
 .navbar-wrapper {
   /*border: 1px solid red;*/
+  padding-top: 10px;
+
 }
 
 .navbar-link {
-  /*border: 1px solid green;*/
+  border: 1px solid white;
   display: inline-block;
-  width: 180px;
+  width: 190px;
   text-decoration: none;
 }
 

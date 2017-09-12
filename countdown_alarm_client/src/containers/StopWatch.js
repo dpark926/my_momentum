@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import '../styles/StopWatch.css'
 
 class StopWatch extends Component {
   constructor () {
@@ -64,41 +65,76 @@ class StopWatch extends Component {
 
   addToLap = () => {
     this.setState({
-      lap: this.state.lap.concat([`${(Math.floor(this.state.millisecond / 1000) % 10)}${(Math.floor(this.state.millisecond / 100) % 10)} : ${Math.floor(this.state.millisecond / 10) % 10}${this.state.millisecond % 10}`])
+      lap: this.state.lap.concat([`${Math.floor(((this.state.minute) % 60) / 10)}${(this.state.minute) % 10} : ${Math.floor(((this.state.second) % 60) / 10)}${(this.state.second) % 10} : ${Math.floor(this.state.millisecond / 10) % 10}${this.state.millisecond % 10}`])
     })
   }
 
   render = () => {
     let laps = (this.state.lap).map( time => {
-      return <div>{time}</div>
+      return <div className='each-time'>{time}</div>
     })
 
     if (!this.state.start) {
       return (
-        <div>
+        <div className="stopwatch-app">
           <h1>Stop Watch</h1>
-          {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
-          <div onClick={this.startToggle}>Start</div>
+          <div className='time'>
+            {/* {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10} */}
+            <div className='minute'>
+              00 :
+            </div>
+            <div className='second'>
+              00 :
+            </div>
+            <div className='millisecond'>
+              00
+            </div>
+          </div>
+          <div className='button' onClick={this.startToggle}>START</div>
         </div>
       )
     } if (!this.state.pause) {
       return (
-        <div>
+        <div className="stopwatch-app">
           <h1>Stop Watch</h1>
-          {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
-          <div onClick={this.resumeToggle}>Resume</div>
-          <div onClick={this.resetToggle}>Reset</div>
-          <div>{laps}</div>
+          <div className='time'>
+            <div className='minute'>
+              {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} :
+            </div>
+            <div className='second'>
+              {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} :
+            </div>
+            <div className='millisecond'>
+              {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
+            </div>
+          </div>
+          <div className='laps'>{laps}</div>
+          <div className='button-wrapper'>
+            <div className='button' onClick={this.resumeToggle}>RESUME</div>
+            <div className='button' onClick={this.resetToggle}>RESET</div>
+          </div>
         </div>
       )
     } else {
       return (
-        <div>
+        <div className="stopwatch-app">
           <h1>Stop Watch</h1>
-          {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} : {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
-          <div onClick={this.pauseToggle}>Pause</div>
-          <div onClick={this.addToLap}>Lap</div>
-          <div>{laps}</div>
+          <div className='time'>
+            <div className='minute'>
+              {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} :
+            </div>
+            <div className='second'>
+              {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} :
+            </div>
+            <div className='millisecond'>
+              {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
+            </div>
+          </div>
+          <div className='laps'>{laps}</div>
+          <div className='button-wrapper'>
+            <div className='button' onClick={this.pauseToggle}>PAUSE</div>
+            <div className='button' onClick={this.addToLap}>LAP</div>
+          </div>
         </div>
       )
     }

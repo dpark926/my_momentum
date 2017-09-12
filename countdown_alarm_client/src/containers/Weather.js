@@ -13,7 +13,7 @@ class Weather extends Component {
       weatherData: [],
       error: '',
       extWeatherAPI: [],
-      zipCodeAPI: {}
+      zipCodeAPI: {},
     }
   }
 
@@ -50,7 +50,7 @@ class Weather extends Component {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
-    fetch(`${ROOT_URL}&q=${73303},us`)
+    fetch(`${ROOT_URL}&q=${11101},us`)
     .then(response => response.json())
     .then(data => this.setState({
       extWeatherAPI: data,
@@ -61,7 +61,7 @@ class Weather extends Component {
   }
 
   zipCodeCall = () => {
-    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${73303}&sensor=true`)
+    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11101}&sensor=true`)
     .then(response => response.json())
     .then(data => this.setState({
       zipCodeAPI: data,
