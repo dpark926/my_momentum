@@ -1,20 +1,31 @@
 # MY MOMENTUM
 
 A personalized dashboard featuring an time/date, weather, alarm, world clock, pomodoro and stopwatch
+- Applied CRUD features with React’s virtual-DOM to render and update fetched data from custom built API endpoints
+- Built custom Rails API to handle AJAX requests for a fast single page application experience with no refreshes
+- Clock, alarm, pomodoro and stopwatch built from scratch by using setInterval to update (milli)seconds
+- Built custom Rails APIs to handle fetch requests
+- OpenWeatherMap API to retrieve current and daily weather forecast data of a city
+- Google Maps Geocoding API to convert zip codes to city names
+
+
+### TIME/DATE
 ![time](./imgs/time.png)
+
+### WEATHER
 ![weather](./imgs/weather.png)
+
+### ALARM
 ![alarm](./imgs/alarm.png)
+
+### POMODORO
 ![pomodoro](./imgs/pomodoro.png)
+
+![pomodoro-start](./imgs/pomodoro-start.png)
+
+### STOPWATCH
 ![stopwatch](./imgs/stopwatch.png)
 
-### FRONTEND
+![stopwatch-start](./imgs/stopwatch-start.png)
 
-The frontend was built with React. I used Vanilla CSS to to build a responsive website and experience what it's like to not depend on frameworks like Bootstrap or Sass.
-
-### BACKEND
-
-The backend API was built with Ruby on Rails.
-
-### AUTHENTICATION
-
-BCrypt is used to validate passwords and JWT to create and decode tokens. Users must be logged in in order to have access their own planner.  Otherwise, logged out user only have access to recipes.
+![stopwatch-pause](./imgs/stopwatch-pause.png)
