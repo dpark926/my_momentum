@@ -119,11 +119,11 @@ class Pomodoro extends Component {
         <div className="pomodoro">
           <h1>POMODORO</h1>
 
-          <div className="wrapper">
+          <div className="time-wrapper">
             <div className="pomodoro-time">{Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div><br/>
           </div>
 
-          <div className="time-wrapper">
+          <div className="wrapper">
             {(!this.state.pause) ? <div className="category-box" onClick={this.pauseToggle}>PAUSE</div> : <div className="category-box" onClick={this.resumeToggle}>RESUME</div>}
             <div className="category-box" onClick={this.cancelToggle}>CANCEL</div>
           </div>

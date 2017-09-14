@@ -211,6 +211,8 @@ class Weather extends Component {
       )
     })
 
+    let filter = fiveDayWeather.slice(0, 5)
+
     console.log(list)
     let nowDate = new Date()
     let nowTemp = 0
@@ -267,7 +269,7 @@ class Weather extends Component {
             <div>H{todaysMax}&#8457;</div> */}
           </div>
           <div className="five-day-weather-wrapper">
-            {fiveDayWeather}
+            {filter}
           </div>
           <div className='todays-weather-city'><span>{`< `}</span> {(this.state.zipCodeAPI.results[0].address_components[2].long_name).toUpperCase()} <span>{` >`}</span></div>
           {weathers}

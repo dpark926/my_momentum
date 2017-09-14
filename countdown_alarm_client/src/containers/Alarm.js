@@ -170,7 +170,7 @@ class Alarm extends Component {
         <div className='alarm-wrapper'>
           <h1>ALARM</h1>
           {alarms}
-          <div className="alarm-add-alarm">{this.state.alarmData.length < 5 ? <a href="#" onClick={this.handleClick}><div className="alarm-box" >+ Add Alarm</div></a> : null}</div>
+          <div className="alarm-add-alarm">{this.state.alarmData.length < 5 ? <a href="#" onClick={this.handleClick}><div className="alarm-box-button" >+ Add Alarm</div></a> : null}</div>
 
         </div>
       )

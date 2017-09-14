@@ -12,6 +12,20 @@
   display: inline-block;
 }
 
+.alarm-box-button {
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 5% 20px;
+  width: 200px;
+  height: 100%;
+  display: inline-block;
+}
+
+.alarm-box-button:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 .alarm-label {
   margin: 10px;
   border: 1px solid white;
@@ -45,13 +59,14 @@
 .active-day {
   /*border: 1px solid blue;*/
   padding: 5px;
-  color: red;
+  color: white;
   display: inline-block;
 }
 
 .inactive-day {
   padding: 5px;
   display: inline-block;
+  color: gray;
 }
 
 .am {
@@ -76,11 +91,12 @@
 
 .delete-alarm-button {
   margin: 10px;
-  border: 1px solid pink;
-  color: white;
+  border: 1px solid gray;
+  color: gray;
   background-color: black;
 }
 
 .delete-alarm-button:hover {
   background-color: gray;
+  color: white;
 }
