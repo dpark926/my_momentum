@@ -1,6 +1,6 @@
 # MY MOMENTUM
 
-A personalized dashboard featuring an time/date, weather, alarm, world clock, pomodoro and stopwatch
+A personalized dashboard featuring an time/date, weather data, alarm clock, world clock, pomodoro time and a stopwatch
 - Applied CRUD features with React’s virtual-DOM to render and update fetched data from custom built API endpoints
 - Built custom Rails API to handle AJAX requests for a fast single page application experience with no refreshes
 - Clock, alarm, pomodoro and stopwatch built from scratch by using setInterval to update (milli)seconds

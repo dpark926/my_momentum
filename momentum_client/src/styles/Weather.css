@@ -65,15 +65,8 @@
 }
 
 .todays-weather-icon {
-  /*border: 1px solid blue;*/
-  /*width: 200px;*/
-  display: block;
-}
-
-.todays-weather-icon img {
-  /*border: 1px solid red;*/
-  height: 6em;
-  display: block;
+  font-size: 60px;
+  padding: 30px;
 }
 
 .todays-weather-desc {
@@ -125,6 +118,8 @@
   color: white;
 }
 
-.each-weather-icon img {
-  height: 6em;
+.each-weather-icon {
+  font-size: 60px;
+  padding: 30px;
+  /*height: 6em;*/
 }

@@ -22,6 +22,9 @@ class WorldClock extends Component {
         <div>
           <h1>World Clock</h1>
           <a href="#" onClick={this.handleClick}>+ Add City</a>
+          <i className="wi wi-night-sleet"></i>
+          <i className="fa fa-snowflake-o" aria-hidden="true"></i>
+          <div className="origin-destination-middle fa fa-long-arrow-right" id="arrow-right"></div>
         </div>
       )
     } else {

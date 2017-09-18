@@ -129,6 +129,27 @@ class Weather extends Component {
   }
 
   render = () => {
+    let weatherIcons = {
+      "01d": "wi wi-day-sunny",
+      "02d": "wi wi-day-cloudy",
+      "03d": "wi wi-cloud",
+      "04d": "wi wi-cloudy",
+      "09d": "wi wi-day-showers",
+      "10d": "wi wi-day-rain",
+      "11d": "wi wi-day-thunderstorm",
+      "13d": "wi wi-day-snow",
+      "50d": "wi wi-fog",
+      "01n": "wi wi-night-clear",
+      "02n": "wi wi-night-cloudy",
+      "03n": "wi wi-cloud",
+      "04n": "wi wi-cloudy",
+      "09n": "wi wi-night-showers",
+      "10n": "wi wi-night-showers",
+      "11n": "wi wi-night-thunderstorm",
+      "13n": "wi wi-night-snow",
+      "50n": "wi wi-fog",
+    }
+
     let weathers = (this.state.weatherData).map( weather => {
       return (
         <div>
@@ -178,13 +199,16 @@ class Weather extends Component {
             todaysDay = days[thisDay.getDay()].toUpperCase()
             if (eachWeather.dt_txt.slice(11) === "12:00:00") {
               todaysDesc = eachWeather.weather[0].description
-              todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+              // todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+              todaysDescIcon = eachWeather.weather[0].icon
             } else if (eachWeather.dt_txt.slice(11) === "18:00:00") {
               todaysDesc = eachWeather.weather[0].description
-              todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+              // todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+              todaysDescIcon = eachWeather.weather[0].icon
             } else {
               todaysDesc = eachWeather.weather[0].description
-              todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+              // todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
+              todaysDescIcon = eachWeather.weather[0].icon
             }
 
             if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
@@ -202,7 +226,9 @@ class Weather extends Component {
         <div className="each-weather">
           <div className="each-weather-date">{date}</div>
           <div className="each-weather-day">{todaysDay}</div>
-          <div className="each-weather-icon">{todaysDescIcon}</div>
+          {/* <div className="each-weather-icon">{todaysDescIcon}</div> */}
+          <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>
+          {/* {todaysDescIcon} */}
           <div className="each-weather-desc">{todaysDesc}</div>
           <div className="temp each-weather-temp">
             <span className="each-weather-min">L{todaysMin}°</span> / <span className="each-weather-max">H{todaysMax}°</span>
@@ -228,7 +254,8 @@ class Weather extends Component {
     } else {
       nowTemp = Math.round(list[0].main.temp * 9/5 - 459.67)
       nowDesc = list[0].weather[0].description
-      nowDescIcon = <img src={`http://openweathermap.org/img/w/${list[0].weather[0].icon}.png`} alt={list[0].weather[0].icon}></img>
+      // nowDescIcon = <img src={`http://openweathermap.org/img/w/${list[0].weather[0].icon}.png`} alt={list[0].weather[0].icon}></img>
+      nowDescIcon = list[0].weather[0].icon
 
       for (let i = 0; i < 5; i ++) {
         let eachWeather = list[i]
@@ -258,7 +285,8 @@ class Weather extends Component {
             <div className='todays-weather-town'>{(this.state.zipCodeAPI.results[0].address_components[1].long_name).toUpperCase()}</div>
             {/* <div>{todaysTemp}&#8457;</div> */}
             <div className='todays-weather-wrapper2'>
-              <div className='todays-weather-icon'>{nowDescIcon}</div>
+              {/* <div className='todays-weather-icon'>{nowDescIcon}</div> */}
+              <div className={`todays-weather-icon ${weatherIcons[nowDescIcon]}`}></div>
               <div className='temp todays-weather-temp'>{nowTemp}°</div>
               <div className='todays-weather-wrapper3'>
                 <div className='todays-weather-desc'>{nowDesc}</div>
