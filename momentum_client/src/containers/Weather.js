@@ -29,8 +29,8 @@ class Weather extends Component {
       weatherData: data,
       error: ''
     }))
-    .then(this.openWeatherCall)
     .then(this.zipCodeCall)
+    .then(this.openWeatherCall)
 
     // fetch(`${ROOT_URL}&q=${11358},us`)
     // .then(response => response.json())
