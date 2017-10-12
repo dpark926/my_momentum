@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831055438) do
+ActiveRecord::Schema.define(version: 20171012023121) do
 
   create_table "alarms", force: :cascade do |t|
     t.string  "time"
@@ -26,6 +26,10 @@ ActiveRecord::Schema.define(version: 20170831055438) do
   end
 
   create_table "weathers", force: :cascade do |t|
+    t.string "city"
+  end
+
+  create_table "world_clocks", force: :cascade do |t|
     t.string "city"
   end
 
