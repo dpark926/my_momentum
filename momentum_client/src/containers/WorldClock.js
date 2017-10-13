@@ -9,6 +9,8 @@ class WorldClock extends Component {
     this.state = {
       addWorldClock: false,
       worldClockData: [],
+      input: '',
+      error: '',
     }
   }
 
@@ -32,20 +34,56 @@ class WorldClock extends Component {
   // }
 
   componentWillMount = () => {
-    const URL = 'http://localhost:3000/api/v1/weathers'
+    const URL = 'http://localhost:3000/api/v1/world_clocks'
 
     fetch(URL)
     .then(response => response.json())
     .then(data => this.setState({
       worldClockData: data,
+      error: '',
     }))
+  }
+
+  addToWeather = (event) => {
+    event.preventDefault()
+
+    if (/(^\d{5}$)|(^\d{5}-\d{4}$)/.test(parseInt(this.state.input))) {
+      fetch('http://localhost:3000/api/v1/world_clocks', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          city: this.state.input
+        })
+      })
+      .then( res => res.json() )
+      .then( data => this.setState({
+        worldClockData: this.state.worldClockData.concat([data]),
+        addWorldClock: !this.state.addWorldClock,
+        input: '',
+        error: '',
+      }))
+    } else {
+      this.setState({
+        error: "Please enter a valid zip code",
+        input: ''
+      })
+      document.getElementById("weather-form").reset()
+    }
   }
 
   handleClick = () => {
     this.setState({
       addWorldClock: !this.state.addWorldClock,
     })
-    console.log(this.state.worldClockData)
+  }
+
+  handleInput = (event) => {
+    this.setState({
+      input: event.target.value
+    })
   }
 
   render = () => {
@@ -71,8 +109,10 @@ class WorldClock extends Component {
       return (
         <div>
           <h1>World Clock</h1>
-          <AddWorldClock/>
-          {/* <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather} input={this.state.input}/> */}
+          {/* <AddWorldClock/> */}
+          <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather} input={this.state.input}/>
+          {this.state.input}
+          <div>{this.state.error}</div>
 
         </div>
       )
