@@ -17,10 +17,12 @@ class Weather extends Component {
     }
   }
 
+  /**
+   * GET request to the local server that returns a list of all zip codes (string).
+   */
+
   componentWillMount = () => {
     const URL = 'http://localhost:3000/api/v1/weathers'
-    const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
-    const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
     fetch(URL)
     .then(response => response.json())
@@ -31,6 +33,12 @@ class Weather extends Component {
     .then(this.zipCodeCall)
     .then(this.openWeatherCall)
   }
+
+  /**
+   * GET request that returns weather data for the next 5 days .
+   * Each object contains weather information in 3-hour increments that
+   * is based on a zip code.
+   */
 
   openWeatherCall = () => {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
@@ -43,6 +51,10 @@ class Weather extends Component {
     }))
   }
 
+  /**
+   * GET request that returns a geocode data that includes the city name for the zip code.
+   */
+
   zipCodeCall = () => {
     fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11101}&sensor=true`)
     .then(response => response.json())
@@ -50,6 +62,12 @@ class Weather extends Component {
       zipCodeAPI: data,
     }))
   }
+
+  /**
+   * An event handler that makes a POST request with the zip code input and
+   * updated the the state by concatenating to the existing array.
+   * Validates if the zip code is a five digit number that doesn't start with 0.
+   */
 
   addToWeather = (event) => {
     event.preventDefault()
@@ -81,6 +99,11 @@ class Weather extends Component {
     }
   }
 
+  /**
+   * An event handler that makes a DELETE request with the zip code input and
+   * updating the state.
+   */
+
   deleteWeather = (id) => {
     let idRemoved = this.state.weatherData.filter(function(el) {
       return el.id !== id;
@@ -99,11 +122,20 @@ class Weather extends Component {
     }))
   }
 
+  /**
+  * An event handler that toggles the display between the 5-day weather forecast
+  * or the input for the zip code.
+  */
+
   handleClick = () => {
     this.setState({
       addCity: !this.state.addCity,
     })
   }
+
+  /**
+  * An event handler that handles the input of the zip code.
+  */
 
   handleInput = (event) => {
     this.setState({
@@ -112,7 +144,7 @@ class Weather extends Component {
   }
 
   render = () => {
-    let weatherIcons = {
+    const weatherIcons = {
       "01d": "wi wi-day-sunny",
       "02d": "wi wi-day-cloudy",
       "03d": "wi wi-cloud",
@@ -133,7 +165,10 @@ class Weather extends Component {
       "50n": "wi wi-fog",
     }
 
-    let weathers = (this.state.weatherData).map( weather => {
+    /**
+     * Display all the zipcode in the database.
+     */
+    const weathers = (this.state.weatherData).map( weather => {
       return (
         <div>
           <div>{weather.city}</div>
@@ -142,66 +177,79 @@ class Weather extends Component {
       )
     })
 
-    let list = this.state.extWeatherAPI.list
-    let fiveDates = []
-
     if (this.state.extWeatherAPI.length === 0) {
       return null
-    } else {
-      for (let i = 0; i < list.length; i ++) {
-        if (fiveDates.includes(list[i].dt_txt.slice(0, 10))) {
-          continue
-        } else {
-          fiveDates.push(list[i].dt_txt.slice(0, 10))
-        }
-      }
     }
+
+    const list = this.state.extWeatherAPI.list
+
+    /**
+     * Parsing through all weather objects and filter to have an array
+     * with unique dates.
+     */
+
+    const fiveDates = []
+
+    for (let i = 0; i < list.length; i ++) {
+      if (fiveDates.includes(list[i].dt_txt.slice(0, 10))) {
+        continue
+      }
+      fiveDates.push(list[i].dt_txt.slice(0, 10))
+    }
+
+    /**
+     * Maps each date in the fiveDates array and assigns the high, low, and
+     * current temperature.
+     * The weather icon is based on the current weather description.
+     * Coverts Kelvin to Fahrenheit
+     */
 
     let fiveDayWeather = fiveDates.map( (date) => {
       let todaysMin = 200
       let todaysMax = 0
       let todaysDesc = ''
       let todaysDay = ''
-      let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
       let todaysDescIcon = ''
 
-      if (list.length === 0) {
-        return null
-      } else {
-        for (let i = 0; i < list.length; i ++) {
-          let eachWeather = list[i]
-          let temp = eachWeather.main.temp
-          let minTemp = eachWeather.main.temp_min
-          let maxTemp = eachWeather.main.temp_max
+      for (let i = 0; i < list.length; i ++) {
+        const eachWeather = list[i]
 
-          if (date === eachWeather.dt_txt.slice(0, 10)) {
-            var thisDay = new Date(date)
-            todaysDay = days[thisDay.getDay()].toUpperCase()
-            if (eachWeather.dt_txt.slice(11) === "12:00:00") {
-              todaysDesc = eachWeather.weather[0].description
-              todaysDescIcon = eachWeather.weather[0].icon
-            } else if (eachWeather.dt_txt.slice(11) === "18:00:00") {
-              todaysDesc = eachWeather.weather[0].description
-              todaysDescIcon = eachWeather.weather[0].icon
-            } else {
-              todaysDesc = eachWeather.weather[0].description
-              todaysDescIcon = eachWeather.weather[0].icon
-            }
+        if (date !== eachWeather.dt_txt.slice(0, 10)) {
+          continue
+        }
 
-            if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
-              todaysMin = Math.round(minTemp * 9/5 - 459.67)
-            }
-            if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
-              todaysMax = Math.round(maxTemp * 9/5 - 459.67)
-            }
-          }
+        const temp = eachWeather.main.temp
+        const minTemp = eachWeather.main.temp_min
+        const maxTemp = eachWeather.main.temp_max
+        const thisDay = new Date(date)
+
+        todaysDay = days[thisDay.getDay()].toUpperCase()
+        if (eachWeather.dt_txt.slice(11) === "12:00:00") {
+          todaysDesc = eachWeather.weather[0].description
+          todaysDescIcon = eachWeather.weather[0].icon
+        } else if (eachWeather.dt_txt.slice(11) === "18:00:00") {
+          todaysDesc = eachWeather.weather[0].description
+          todaysDescIcon = eachWeather.weather[0].icon
+        } else {
+          todaysDesc = eachWeather.weather[0].description
+          todaysDescIcon = eachWeather.weather[0].icon
+        }
+
+        if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
+          todaysMin = Math.round(minTemp * 9/5 - 459.67)
+        }
+        if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
+          todaysMax = Math.round(maxTemp * 9/5 - 459.67)
         }
       }
 
       return (
         <div className="each-weather">
           <div className="each-weather-date">{date}</div>
-          <div className="each-weather-day">{todaysDay}</div>          <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>          <div className="each-weather-desc">{todaysDesc}</div>
+          <div className="each-weather-day">{todaysDay}</div>
+          <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>
+          <div className="each-weather-desc">{todaysDesc}</div>
           <div className="temp each-weather-temp">
             <span className="each-weather-min">L{todaysMin}°</span> / <span className="each-weather-max">H{todaysMax}°</span>
           </div>
@@ -209,16 +257,18 @@ class Weather extends Component {
       )
     })
 
-    let filter = fiveDayWeather.slice(0, 5)
+    /**
+     * This section is for the current weather.
+     */
 
-    console.log(list)
-    let nowDate = new Date()
+    let filter = fiveDayWeather.slice(0, 5)
+    const nowDate = new Date()
     let nowTemp = 0
     let nowDesc = ''
     let nowMin = 200
     let nowMax = 0
     let nowDay = ''
-    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     let nowDescIcon = ''
 
     if (this.state.extWeatherAPI.length === 0) {
@@ -244,8 +294,11 @@ class Weather extends Component {
       }
     }
 
+    /**
+     * Toggling between the display of the 5-day weather forecast or the section to add a new zipcode.
+     */
+
     if (!this.state.addCity) {
-      console.log(this.state.extWeatherAPI)
       return (
         <div className='weather-app'>
           <div className='todays-weather-wrapper'>
