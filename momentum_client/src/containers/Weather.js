@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AddWeatherCity from '../components/AddWeatherCity.js'
-import '../styles/Weather.css';
 import WeatherIcons from 'react-weathericons';
+import '../styles/Weather.css';
 
 class Weather extends Component {
   constructor () {
@@ -22,7 +22,6 @@ class Weather extends Component {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
-
     fetch(URL)
     .then(response => response.json())
     .then(data => this.setState({
@@ -31,19 +30,6 @@ class Weather extends Component {
     }))
     .then(this.zipCodeCall)
     .then(this.openWeatherCall)
-
-    // fetch(`${ROOT_URL}&q=${11358},us`)
-    // .then(response => response.json())
-    // .then(data => this.setState({
-    //   extWeatherAPI: data,
-    // }))
-
-    // fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11373}&sensor=true`)
-    // .then(response => response.json())
-    // .then(data => this.setState({
-    //   zipCodeAPI: data,
-    // }))
-
   }
 
   openWeatherCall = () => {
@@ -55,9 +41,6 @@ class Weather extends Component {
     .then(data => this.setState({
       extWeatherAPI: data,
     }))
-
-    // console.log(this.state.weatherData)
-    // debugger
   }
 
   zipCodeCall = () => {
@@ -154,13 +137,11 @@ class Weather extends Component {
       return (
         <div>
           <div>{weather.city}</div>
-          {/* <div className="change-alarm-button">Change</div> */}
           <div onClick={() => this.deleteWeather(weather.id)} className="delete-weather-button">DELETE</div>
         </div>
       )
     })
 
-    ////
     let list = this.state.extWeatherAPI.list
     let fiveDates = []
 
@@ -194,26 +175,21 @@ class Weather extends Component {
           let maxTemp = eachWeather.main.temp_max
 
           if (date === eachWeather.dt_txt.slice(0, 10)) {
-            // console.log(eachWeather.dt_txt.getDay())
             var thisDay = new Date(date)
             todaysDay = days[thisDay.getDay()].toUpperCase()
             if (eachWeather.dt_txt.slice(11) === "12:00:00") {
               todaysDesc = eachWeather.weather[0].description
-              // todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
               todaysDescIcon = eachWeather.weather[0].icon
             } else if (eachWeather.dt_txt.slice(11) === "18:00:00") {
               todaysDesc = eachWeather.weather[0].description
-              // todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
               todaysDescIcon = eachWeather.weather[0].icon
             } else {
               todaysDesc = eachWeather.weather[0].description
-              // todaysDescIcon = <img src={`http://openweathermap.org/img/w/${eachWeather.weather[0].icon}.png`} alt={eachWeather.weather[0].icon}></img>
               todaysDescIcon = eachWeather.weather[0].icon
             }
 
             if (todaysMin > Math.round(minTemp * 9/5 - 459.67)) {
               todaysMin = Math.round(minTemp * 9/5 - 459.67)
-              // fiveDay.push({date: todaysDate.toJSON().slice(0, 10), min: todaysMin})
             }
             if (todaysMax < Math.round(maxTemp * 9/5 - 459.67)) {
               todaysMax = Math.round(maxTemp * 9/5 - 459.67)
@@ -225,11 +201,7 @@ class Weather extends Component {
       return (
         <div className="each-weather">
           <div className="each-weather-date">{date}</div>
-          <div className="each-weather-day">{todaysDay}</div>
-          {/* <div className="each-weather-icon">{todaysDescIcon}</div> */}
-          <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>
-          {/* {todaysDescIcon} */}
-          <div className="each-weather-desc">{todaysDesc}</div>
+          <div className="each-weather-day">{todaysDay}</div>          <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>          <div className="each-weather-desc">{todaysDesc}</div>
           <div className="temp each-weather-temp">
             <span className="each-weather-min">L{todaysMin}°</span> / <span className="each-weather-max">H{todaysMax}°</span>
           </div>
@@ -254,7 +226,6 @@ class Weather extends Component {
     } else {
       nowTemp = Math.round(list[0].main.temp * 9/5 - 459.67)
       nowDesc = list[0].weather[0].description
-      // nowDescIcon = <img src={`http://openweathermap.org/img/w/${list[0].weather[0].icon}.png`} alt={list[0].weather[0].icon}></img>
       nowDescIcon = list[0].weather[0].icon
 
       for (let i = 0; i < 5; i ++) {
@@ -277,15 +248,9 @@ class Weather extends Component {
       console.log(this.state.extWeatherAPI)
       return (
         <div className='weather-app'>
-          {/* <h1>Weather</h1> */}
-
           <div className='todays-weather-wrapper'>
-            {/* <div className='todays-weather-date'>{todaysDate.toJSON().slice(0, 10)}</div> */}
-            {/* <div className='todays-weather-day'>{todaysDay}</div> */}
             <div className='todays-weather-town'>{(this.state.zipCodeAPI.results[0].address_components[1].long_name).toUpperCase()}</div>
-            {/* <div>{todaysTemp}&#8457;</div> */}
             <div className='todays-weather-wrapper2'>
-              {/* <div className='todays-weather-icon'>{nowDescIcon}</div> */}
               <div className={`todays-weather-icon ${weatherIcons[nowDescIcon]}`}></div>
               <div className='temp todays-weather-temp'>{nowTemp}°</div>
               <div className='todays-weather-wrapper3'>
@@ -293,8 +258,6 @@ class Weather extends Component {
                 <div className='temp todays-weather-highlow'>L{nowMin}° /<span className="todays-weather-high">H{nowMax}°</span></div>
               </div>
             </div>
-            {/* <div>L{todaysMin}&#8457;</div>
-            <div>H{todaysMax}&#8457;</div> */}
           </div>
           <div className="five-day-weather-wrapper">
             {filter}
