@@ -7,6 +7,7 @@ A personalized dashboard featuring an time/date, weather data, alarm clock, worl
 - Built custom Rails APIs to handle fetch requests
 - OpenWeatherMap API to retrieve current and daily weather forecast data of a city
 - Google Maps Geocoding API to convert zip codes to city names
+- Weather Icon are sourced from erikflowers
 
 
 ### TIME/DATE

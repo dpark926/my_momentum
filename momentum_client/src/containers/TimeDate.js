@@ -14,13 +14,12 @@ class TimeDate extends Component {
       year: d.getFullYear(),
       hour: d.getHours(),
       minute: d.getMinutes(),
-      // second: d.getSeconds(),
-      // time: d.toLocaleTimeString(),
     }
   }
 
   countingMinute = () => {
     let d = new Date()
+    console.log(d)
     this.setState({
       day: d.getDay(),
       month: d.getMonth(),
@@ -28,9 +27,6 @@ class TimeDate extends Component {
       year: d.getFullYear(),
       hour: d.getHours(),
       minute: d.getMinutes(),
-      // second: d.getSeconds(),
-      // milliseconds: d.getMilliseconds(),
-      // time: d.toLocaleTimeString()
     })
   }
 
@@ -55,8 +51,8 @@ class TimeDate extends Component {
     return (
       <div className='timedate-wrapper'>
         <div className='counting-time'>
-          {this.state.hour === 0 ? "12" : this.state.hour % 12}:{this.state.minute < 10 ? "0" + this.state.minute : this.state.minute}
-          <span className="ampm">{this.state.hour < 13 ? "AM" : "PM"}</span>
+          {this.state.hour === 0 || this.state.hour === 12 ? "12" : this.state.hour % 12}:{this.state.minute < 10 ? "0" + this.state.minute : this.state.minute}
+          <span className="ampm">{this.state.hour < 12 ? "AM" : "PM"}</span>
         </div>
         <div className='timedate-date'>{days[this.state.day]}, {months[this.state.month]} {this.state.date}, {this.state.year}</div>
         <div className="alarm-greeting">{greeting}, Daniel</div>
