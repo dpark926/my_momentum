@@ -1,16 +1,13 @@
 .timedate-wrapper {
-  /* border: 1px solid red; */
-  margin: 20px;
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
   font-family: 'Abel', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -50px;
 }
 
 .counting-time {
-  /*border: 1px solid red;*/
   font-size: 140px;
 }
 
