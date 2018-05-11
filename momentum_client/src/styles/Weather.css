@@ -1,12 +1,15 @@
 .weather-app {
-  /* display: flex; */
-  /* flex-flow: column; */
-  /* height: 100%; */
-  padding: 2em;
+  display: flex;
   font-family: 'Karla', sans-serif;
-  /*background-color: rgba(255, 255, 255, 0.3);*/
-  background: rgba(0, 0, 0, 0.3);
-  /* border: 1px solid pink; */
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100%;
+}
+
+.weather-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  align-items: center;
 }
 
 .temp {
@@ -90,18 +93,17 @@
 }
 
 .five-day-weather-wrapper {
+  display: flex;
+  flex-direction: row;
   border-top: 2px solid #c3c2c5;
-  /*border-bottom: 2px solid #c3c2c5;*/
   margin-top: 20px;
+  margin-bottom: 20px;
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .each-weather {
-  height: 200px;
-  width: 130px;
-  /*border: 1px solid black;*/
-  display: inline-block;
-  margin: 20px;
+  flex-grow: 1;
 }
 
 .each-weather-date {

@@ -5,7 +5,7 @@ import '../styles/Weather.css';
 
 class Weather extends Component {
   constructor () {
-    super()
+    super();
 
     this.state = {
       addCity: false,
@@ -20,7 +20,6 @@ class Weather extends Component {
   /**
    * GET request to the local server that returns a list of all zip codes (string).
    */
-
   componentWillMount = () => {
     const URL = 'http://localhost:3000/api/v1/weathers'
 
@@ -28,10 +27,10 @@ class Weather extends Component {
     .then(response => response.json())
     .then(data => this.setState({
       weatherData: data,
-      error: ''
     }))
-    .then(this.zipCodeCall)
+    // .then(data => console.log(data))
     .then(this.openWeatherCall)
+    .then(this.zipCodeCall)
   }
 
   /**
@@ -39,12 +38,12 @@ class Weather extends Component {
    * Each object contains weather information in 3-hour increments that
    * is based on a zip code.
    */
-
   openWeatherCall = () => {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
+    const zipCode = this.state.weatherData[0] || {city: '11101'};
 
-    fetch(`${ROOT_URL}&q=${11101},us`)
+    fetch(`${ROOT_URL}&q=${zipCode.city},us`)
     .then(response => response.json())
     .then(data => this.setState({
       extWeatherAPI: data,
@@ -56,7 +55,9 @@ class Weather extends Component {
    */
 
   zipCodeCall = () => {
-    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${11101}&sensor=true`)
+    const zipCode = this.state.weatherData[0] || {city: '11101'};
+
+    fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${zipCode.city}&sensor=true`)
     .then(response => response.json())
     .then(data => this.setState({
       zipCodeAPI: data,
@@ -68,7 +69,6 @@ class Weather extends Component {
    * updated the the state by concatenating to the existing array.
    * Validates if the zip code is a five digit number that doesn't start with 0.
    */
-
   addToWeather = (event) => {
     event.preventDefault()
 
@@ -103,7 +103,6 @@ class Weather extends Component {
    * An event handler that makes a DELETE request with the zip code input and
    * updating the state.
    */
-
   deleteWeather = (id) => {
     let idRemoved = this.state.weatherData.filter(function(el) {
       return el.id !== id;
@@ -126,7 +125,6 @@ class Weather extends Component {
   * An event handler that toggles the display between the 5-day weather forecast
   * or the input for the zip code.
   */
-
   handleClick = () => {
     this.setState({
       addCity: !this.state.addCity,
@@ -136,7 +134,6 @@ class Weather extends Component {
   /**
   * An event handler that handles the input of the zip code.
   */
-
   handleInput = (event) => {
     this.setState({
       input: event.target.value
@@ -187,7 +184,6 @@ class Weather extends Component {
      * Parsing through all weather objects and filter to have an array
      * with unique dates.
      */
-
     const fiveDates = []
 
     for (let i = 0; i < list.length; i ++) {
@@ -203,7 +199,6 @@ class Weather extends Component {
      * The weather icon is based on the current weather description.
      * Coverts Kelvin to Fahrenheit
      */
-
     let fiveDayWeather = fiveDates.map( (date) => {
       let todaysMin = 200
       let todaysMax = 0
@@ -260,7 +255,6 @@ class Weather extends Component {
     /**
      * This section is for the current weather.
      */
-
     let filter = fiveDayWeather.slice(0, 5)
     const nowDate = new Date()
     let nowTemp = 0
@@ -297,27 +291,29 @@ class Weather extends Component {
     /**
      * Toggling between the display of the 5-day weather forecast or the section to add a new zipcode.
      */
-
     if (!this.state.addCity) {
       return (
         <div className='weather-app'>
-          <div className='todays-weather-wrapper'>
-            <div className='todays-weather-town'>{(this.state.zipCodeAPI.results[0].address_components[1].long_name).toUpperCase()}</div>
-            <div className='todays-weather-wrapper2'>
-              <div className={`todays-weather-icon ${weatherIcons[nowDescIcon]}`}></div>
-              <div className='temp todays-weather-temp'>{nowTemp}°</div>
-              <div className='todays-weather-wrapper3'>
-                <div className='todays-weather-desc'>{nowDesc}</div>
-                <div className='temp todays-weather-highlow'>L{nowMin}° /<span className="todays-weather-high">H{nowMax}°</span></div>
+          <div className='weather-wrapper'>
+            <div className='todays-weather-wrapper'>
+              <div className='todays-weather-town'>{(this.state.zipCodeAPI.results[0].address_components[1].long_name).toUpperCase()}</div>
+              <div className='todays-weather-wrapper2'>
+                <div className={`todays-weather-icon ${weatherIcons[nowDescIcon]}`}></div>
+                <div className='temp todays-weather-temp'>{nowTemp}°</div>
+                <div className='todays-weather-wrapper3'>
+                  <div className='todays-weather-desc'>{nowDesc}</div>
+                  <div className='temp todays-weather-highlow'>L{nowMin}° /<span className="todays-weather-high">H{nowMax}°</span></div>
+                </div>
               </div>
             </div>
+            <div className="five-day-weather-wrapper">
+              {filter}
+            </div>
+            <div className='todays-weather-city'><span>{`< `}</span> {(this.state.zipCodeAPI.results[0].address_components[2].long_name).toUpperCase()} <span>{` >`}</span></div>
+            {weathers}
+            <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
+
           </div>
-          <div className="five-day-weather-wrapper">
-            {filter}
-          </div>
-          <div className='todays-weather-city'><span>{`< `}</span> {(this.state.zipCodeAPI.results[0].address_components[2].long_name).toUpperCase()} <span>{` >`}</span></div>
-          {weathers}
-          <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
         </div>
       )
     } else {
