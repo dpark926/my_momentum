@@ -8,12 +8,12 @@ class Weather extends Component {
     super();
 
     this.state = {
-      addCity: false,
+      addCityToggleButton: false,
       input: '',
-      weatherData: [],
+      zipCodeData: [],
       error: '',
-      extWeatherAPI: [],
-      zipCodeAPI: {},
+      openWeatherData: [],
+      googleGeoCode: {},
     }
   }
 
@@ -26,9 +26,10 @@ class Weather extends Component {
     fetch(URL)
     .then(response => response.json())
     .then(data => this.setState({
-      weatherData: data,
+      zipCodeData: data,
     }))
     // .then(data => console.log(data))
+    // .catch(err => console.log(err))
     .then(this.openWeatherCall)
     .then(this.zipCodeCall)
   }
@@ -41,12 +42,12 @@ class Weather extends Component {
   openWeatherCall = () => {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
-    const zipCode = this.state.weatherData[0] || {city: '11101'};
+    const zipCode = this.state.zipCodeData[0] || {city: '11101'};
 
     fetch(`${ROOT_URL}&q=${zipCode.city},us`)
     .then(response => response.json())
     .then(data => this.setState({
-      extWeatherAPI: data,
+      openWeatherData: data,
     }))
   }
 
@@ -55,12 +56,12 @@ class Weather extends Component {
    */
 
   zipCodeCall = () => {
-    const zipCode = this.state.weatherData[0] || {city: '11101'};
+    const zipCode = this.state.zipCodeData[0] || {city: '11101'};
 
     fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${zipCode.city}&sensor=true`)
     .then(response => response.json())
     .then(data => this.setState({
-      zipCodeAPI: data,
+      googleGeoCode: data,
     }))
   }
 
@@ -85,8 +86,8 @@ class Weather extends Component {
       })
       .then( res => res.json() )
       .then( data => this.setState({
-        weatherData: this.state.weatherData.concat([data]),
-        addCity: !this.state.addCity,
+        zipCodeData: this.state.zipCodeData.concat([data]),
+        addCityToggleButton: !this.state.addCityToggleButton,
         input: '',
         error: '',
       }))
@@ -104,7 +105,7 @@ class Weather extends Component {
    * updating the state.
    */
   deleteWeather = (id) => {
-    let idRemoved = this.state.weatherData.filter(function(el) {
+    let idRemoved = this.state.zipCodeData.filter(function(el) {
       return el.id !== id;
     });
 
@@ -117,7 +118,7 @@ class Weather extends Component {
     })
     .then( res => res.json() )
     .then( data => this.setState({
-      weatherData: idRemoved,
+      zipCodeData: idRemoved,
     }))
   }
 
@@ -127,7 +128,7 @@ class Weather extends Component {
   */
   handleClick = () => {
     this.setState({
-      addCity: !this.state.addCity,
+      addCityToggleButton: !this.state.addCityToggleButton,
     })
   }
 
@@ -165,7 +166,7 @@ class Weather extends Component {
     /**
      * Display all the zipcode in the database.
      */
-    const weathers = (this.state.weatherData).map( weather => {
+    const weathers = (this.state.zipCodeData).map( weather => {
       return (
         <div>
           <div>{weather.city}</div>
@@ -174,11 +175,11 @@ class Weather extends Component {
       )
     })
 
-    if (this.state.extWeatherAPI.length === 0) {
+    if (this.state.openWeatherData.length === 0) {
       return null
     }
 
-    const list = this.state.extWeatherAPI.list
+    const list = this.state.openWeatherData.list
 
     /**
      * Parsing through all weather objects and filter to have an array
@@ -265,7 +266,7 @@ class Weather extends Component {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     let nowDescIcon = ''
 
-    if (this.state.extWeatherAPI.length === 0) {
+    if (this.state.openWeatherData.length === 0) {
       return null
     } else {
       nowTemp = Math.round(list[0].main.temp * 9/5 - 459.67)
@@ -291,12 +292,12 @@ class Weather extends Component {
     /**
      * Toggling between the display of the 5-day weather forecast or the section to add a new zipcode.
      */
-    if (!this.state.addCity) {
+    if (!this.state.addCityToggleButton) {
       return (
         <div className='weather-app'>
           <div className='weather-wrapper'>
             <div className='todays-weather-wrapper'>
-              <div className='todays-weather-town'>{(this.state.zipCodeAPI.results[0].address_components[1].long_name).toUpperCase()}</div>
+              <div className='todays-weather-town'>{(this.state.googleGeoCode.results[0].address_components[1].long_name).toUpperCase()}</div>
               <div className='todays-weather-wrapper2'>
                 <div className={`todays-weather-icon ${weatherIcons[nowDescIcon]}`}></div>
                 <div className='temp todays-weather-temp'>{nowTemp}°</div>
@@ -309,7 +310,7 @@ class Weather extends Component {
             <div className="five-day-weather-wrapper">
               {filter}
             </div>
-            <div className='todays-weather-city'><span>{`< `}</span> {(this.state.zipCodeAPI.results[0].address_components[2].long_name).toUpperCase()} <span>{` >`}</span></div>
+            <div className='todays-weather-city'><span>{`< `}</span> {(this.state.googleGeoCode.results[0].address_components[2].long_name).toUpperCase()} <span>{` >`}</span></div>
             {weathers}
             <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
 
