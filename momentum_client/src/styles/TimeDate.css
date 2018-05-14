@@ -27,6 +27,30 @@
   font-family: 'Abel', sans-serif;
 }
 
+@media screen and (max-width: 480px) {
+  .timedate-wrapper {
+    border: 1px solid red;
+    margin-top: -70px;
+  }
+
+  .timedate-date {
+    font-size: 25px;
+  }
+
+  .ampm {
+    font-size: 30px;
+  }
+
+  .counting-time {
+    font-size: 80px;
+  }
+
+  .alarm-greeting {
+    font-size: 30px;
+    font-family: 'Abel', sans-serif;
+  }
+}
+
 .inputName {
   font-size: 50px;
   font-family: 'Abel', sans-serif;
