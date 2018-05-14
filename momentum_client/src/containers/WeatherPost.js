@@ -9,9 +9,6 @@ class WeatherPost extends Component {
     super(props);
 
     this.state = {
-      addCityToggleButton: false,
-      input: '',
-      error: '',
       zipCode: this.props.zipCode,
       openWeatherData: [],
       googleGeoCode: {},
@@ -23,6 +20,10 @@ class WeatherPost extends Component {
    * Each object contains weather information in 3-hour increments that
    * is based on a zip code.
    */
+
+   /**
+    * GET request that returns a geocode data that includes the city name for the zip code.
+    */
   componentWillMount = () => {
     const API_KEY = '97e27a7129f7dc7d673c7a670793a180'
     const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
@@ -44,99 +45,7 @@ class WeatherPost extends Component {
     .then(() => console.log('google geocode success'))
   }
 
-  /**
-   * GET request that returns a geocode data that includes the city name for the zip code.
-   */
-
-  // zipCodeCall = () => {
-  //   console.log('geocode called')
-  //   const zipCode = this.state.zipCodeData[0] || {city: '11101'};
-  //
-  //   fetch(`http://maps.googleapis.com/maps/api/geocode/json?address=${zipCode.city}&sensor=true`)
-  //   .then(response => response.json())
-  //   .then(data => this.setState({
-  //     googleGeoCode: data,
-  //   }))
-  // }
-
-  /**
-   * An event handler that makes a POST request with the zip code input and
-   * updated the the state by concatenating to the existing array.
-   * Validates if the zip code is a five digit number that doesn't start with 0.
-   */
-  addToWeather = (event) => {
-    event.preventDefault()
-
-    if (/(^\d{5}$)|(^\d{5}-\d{4}$)/.test(parseInt(this.state.input))) {
-      fetch('http://localhost:3000/api/v1/weathers', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          city: this.state.input
-        })
-      })
-      .then( res => res.json() )
-      .then( data => this.setState({
-        zipCodeData: this.state.zipCodeData.concat([data]),
-        addCityToggleButton: !this.state.addCityToggleButton,
-        input: '',
-        error: '',
-      }))
-    } else {
-      this.setState({
-        error: "Please enter a valid zip code",
-        input: ''
-      })
-      document.getElementById("weather-form").reset()
-    }
-  }
-
-  /**
-   * An event handler that makes a DELETE request with the zip code input and
-   * updating the state.
-   */
-  deleteWeather = (id) => {
-    let idRemoved = this.state.zipCodeData.filter(function(el) {
-      return el.id !== id;
-    });
-
-    return fetch(`http://localhost:3000/api/v1/weathers/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then( res => res.json() )
-    .then( data => this.setState({
-      zipCodeData: idRemoved,
-    }))
-  }
-
-  /**
-  * An event handler that toggles the display between the 5-day weather forecast
-  * or the input for the zip code.
-  */
-  handleClick = () => {
-    this.setState({
-      addCityToggleButton: !this.state.addCityToggleButton,
-    })
-  }
-
-  /**
-  * An event handler that handles the input of the zip code.
-  */
-  handleInput = (event) => {
-    this.setState({
-      input: event.target.value
-    })
-  }
-
   render = () => {
-    console.log(this.state)
     const weatherIcons = {
       "01d": "wi wi-day-sunny",
       "02d": "wi wi-day-cloudy",
@@ -157,18 +66,6 @@ class WeatherPost extends Component {
       "13n": "wi wi-night-snow",
       "50n": "wi wi-fog",
     }
-
-    /**
-     * Display all the zipcode in the database.
-     */
-    // const weathers = (this.state.zipCodeData).map( weather => {
-    //   return (
-    //     <div>
-    //       <div>{weather.city}</div>
-    //       <div onClick={() => this.deleteWeather(weather.id)} className="delete-weather-button">DELETE</div>
-    //     </div>
-    //   )
-    // })
 
     if (this.state.openWeatherData.length === 0) {
       return null
@@ -287,8 +184,7 @@ class WeatherPost extends Component {
     /**
      * Toggling between the display of the 5-day weather forecast or the section to add a new zipcode.
      */
-    if (!this.state.addCityToggleButton) {
-      console.log(this.props.nextZipCode)
+    if (!this.props.addCityToggleButton) {
       return (
         <div className='weather-app'>
           <div className='weather-wrapper'>
@@ -307,13 +203,22 @@ class WeatherPost extends Component {
               {filter}
             </div>
             <div className='todays-weather-city'>
-              <span>{`< `}</span>
+              { this.props.previousZipCode === null ?
+                null :
+                <Link to={`/weather/${this.props.previousZipCode}`}>
+                  <span>{`< `}</span>
+                </Link>
+              }
               {(this.state.googleGeoCode.results[0].address_components[2].long_name).toUpperCase()}
-              <Link to={`/weather/${this.props.nextZipCode}`}>
-                <span>{` >`}</span>
-              </Link>
+              { this.props.nextZipCode === null ?
+                null :
+                <Link to={`/weather/${this.props.nextZipCode}`}>
+                  <span>{` >`}</span>
+                </Link>
+              }
             </div>
-            <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
+            <div className='todays-weather-addcity'><a href="#" onClick={this.props.handleClick}>+ ADD CITY</a></div>
+            <div onClick={() => this.props.deleteWeather(this.props.id)} className="delete-weather-button">DELETE</div>
           </div>
         </div>
       )
@@ -321,9 +226,9 @@ class WeatherPost extends Component {
       return (
         <div>
           <h1>Weather</h1>
-          <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather} input={this.state.input}/>
-          <div>Input: {this.state.input}</div>
-          <div>{this.state.error}</div>
+          <AddWeatherCity handleInput={this.props.handleInput} addToWeather={this.props.addWeather} input={this.props.input}/>
+          <div>Input: {this.props.input}</div>
+          <div>{this.props.error}</div>
         </div>
       )
     }
