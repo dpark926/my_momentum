@@ -202,33 +202,35 @@ class WeatherPost extends Component {
             <div className="five-day-weather-wrapper">
               {filter}
             </div>
-            <div className='todays-weather-city'>
+            <div className='todays-weather-city-wrapper'>
               { this.props.previousZipCode === null ?
-                null :
-                <Link to={`/weather/${this.props.previousZipCode}`}>
-                  <span>{`< `}</span>
+                <span className='todays-weather-city-button' style={{color: 'gray'}}>{`< `}</span> :
+                <Link to={`/weather/${this.props.previousZipCode}`} className='todays-weather-city-link'>
+                  <span className='todays-weather-city-button'>{`< `}</span>
                 </Link>
               }
-              {(this.state.googleGeoCode.results[0].address_components[2].long_name).toUpperCase()}
+              <span>{(this.state.googleGeoCode.results[0].address_components[2].long_name).toUpperCase()}</span>
               { this.props.nextZipCode === null ?
-                null :
-                <Link to={`/weather/${this.props.nextZipCode}`}>
-                  <span>{` >`}</span>
+                <span className='todays-weather-city-button' style={{color: 'gray'}}>{`> `}</span> :
+                <Link to={`/weather/${this.props.nextZipCode}`} className='todays-weather-city-link'>
+                  <span className='todays-weather-city-button'>{` >`}</span>
                 </Link>
               }
             </div>
             <div className='todays-weather-addcity'><a href="#" onClick={this.props.handleClick}>+ ADD CITY</a></div>
-            <div onClick={() => this.props.deleteWeather(this.props.id)} className="delete-weather-button">DELETE</div>
+            <Link to={ this.props.nextZipCode ? `/weather/${this.props.nextZipCode}` : `/weather/${this.props.previousZipCode}` } className='todays-weather-city-link'>
+              <div onClick={() => this.props.deleteWeather(this.props.id)} className="delete-weather-button">DELETE THIS CITY</div>
+            </Link>
           </div>
         </div>
       )
     } else {
       return (
-        <div>
+        <div className='addCityContainer'>
           <h1>Weather</h1>
           <AddWeatherCity handleInput={this.props.handleInput} addToWeather={this.props.addWeather} input={this.props.input}/>
-          <div>Input: {this.props.input}</div>
           <div>{this.props.error}</div>
+          <div onClick={this.props.handleClick} className='addCityCancelButton'>Cancel</div>
         </div>
       )
     }

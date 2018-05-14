@@ -1,0 +1,42 @@
+.addWeatherCityContainer {
+}
+
+.addWeatherCityContainerInput {
+  margin: 20px;
+  padding: 10px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  width: 300px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.addWeatherSubmitButton {
+  width: 150px;
+  border: 2px solid white;
+  margin: 20px;
+  padding: 10px;
+  color: white;
+  background-color: transparent;
+  font-size: 20px;
+  text-align: center;
+}
+
+.addWeatherSubmitButton:hover {
+  color: #ff6f69;
+  border: 2px solid #ff6f69;
+}
+
+.addWeatherSubmitButton-inactive {
+  width: 150px;
+  border: 2px solid gray;
+  margin: 20px;
+  padding: 10px 0px;
+  color: gray;
+  background-color: transparent;
+  font-size: 20px;
+  text-align: center;
+}
+
