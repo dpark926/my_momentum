@@ -28,6 +28,7 @@ class Weather extends Component {
       zipCodeData: data
     }))
     .catch(err => console.log(err))
+    .then(() => console.log('zipCodeData success'))
   }
 
   /**
@@ -106,38 +107,114 @@ class Weather extends Component {
     })
   }
 
-  render = () => {
-    let zipcodeList = this.state.zipCodeData.map( zipcode => {
-      return (
-        <Route exact path='/weather/1' render={() => <WeatherPost
-          zipCode={zipcode.city}
-        />}/>
-      )
+  increasePage = () => {
+    this.setState({
+      pageNum: this.state.pageNum + 1
     })
+  }
+
+  render = () => {
+    // let zipcodeList = this.state.zipCodeData.map( ( zipcode, num ) => {
+    //   return (
+    //     // <Route
+    //     //   // path={() => `/weather/${num + 1}`}
+    //     //   path='/weather/:postId'
+    //     //   render={() => <WeatherPost
+    //     //     zipCode={ zipcode.city }
+    //     //   />}
+    //     // />
+    //     <WeatherPost zipCode={ zipcode.city }/>
+    //   )
+    // })
     /**
      * Toggling between the display of the 5-day weather forecast or the section to add a new zipcode.
      */
-    if (!this.state.addCityToggleButton) {
+
+    // if (this.state.zipCodeData.length !== 0) {
+    //   console.log(this.state.zipCodeData)
+    //   return (
+    //     <div>
+    //       {/* <Redirect to='/weather/7'/> */}
+    //       {/* <Route
+    //         path='/weather'
+    //         render={() => <WeatherPost
+    //         zipCode='11372'
+    //       />}/>
+    //       <Route
+    //         path='/weather/2'
+    //         render={() => <WeatherPost
+    //         zipCode='11358'
+    //       />}/> */}
+    //       {/* <Switch> */}
+    //
+    //         {zipcodeList}
+    //       {/* </Switch> */}
+    //     </div>
+    //   )
+    // } else {
+    //   return (
+    //     <div>
+    //       <h1>Weather</h1>
+    //       <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather} input={this.state.input}/>
+    //       <div>Input: {this.state.input}</div>
+    //       <div>{this.state.error}</div>
+    //     </div>
+    //   )
+    // }
+
+    // console.log(this.state.zipCodeData)
+    // let list = this.state.zipCodeData.map(weather => {
+    //   console.log(weather)
+    //   return (
+    //     <div>
+    //       <Link to={() => `/weather/${weather.city}`}>
+    //       {/* <Link to='/weather/11101'> */}
+    //         <WeatherPost zipCode={weather.city}/>
+    //       </Link>
+    //     </div>
+    //   )
+    // })
+    //
+    // if (this.state.zipCodeData.length !== 0) {
+    //   console.log(this.state.pageNum)
+    //   return (
+    //     <div>
+    //       <h1>Hello?</h1>
+    //       {/* {list} */}
+    //       <WeatherPost zipCode={this.state.zipCodeData[this.state.pageNum].city}/>
+    //       <div>{this.state.pageNum}</div>
+    //       <div onClick={this.increasePage}>Increase</div>
+    //       <div>{this.state.zipCodeData[this.state.pageNum].city}</div>
+    //     </div>
+    //   )
+    // } else {
+    //   return (
+    //     <div>loading</div>
+    //   )
+    // }
+
+    let list = this.state.zipCodeData.map( (weather, num, arr) => {
       return (
-        <div>
-          <Redirect to='/weather/1'/>
-          <Route path='/weather/1' render={() => <WeatherPost
-            zipCode='11372'
-          />}/>
-          <Route path='/weather/2' render={() => <WeatherPost
-            zipCode='11358'
-          />}/>
-          {/* {zipcodeList} */}
+        <Route
+          path={`/weather/${weather.city}`}
+          render={() => <WeatherPost
+            zipCode={weather.city}
+            nextZipCode={arr[num + 1] ? arr[num + 1].city : null}
+          />}
+        />
+      )
+    })
+
+    if (this.state.zipCodeData.length !== 0) {
+      return (
+        <div className='weatherContainer'>
+          <Redirect to={`/weather/${this.state.zipCodeData[0].city}`}/>
+          {list}
         </div>
       )
     } else {
       return (
-        <div>
-          <h1>Weather</h1>
-          <AddWeatherCity handleInput={this.handleInput} addToWeather={this.addToWeather} input={this.state.input}/>
-          <div>Input: {this.state.input}</div>
-          <div>{this.state.error}</div>
-        </div>
+        <div className='weatherContainer'>LOADING...</div>
       )
     }
   }

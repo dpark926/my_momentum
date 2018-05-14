@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AddWeatherCity from '../components/AddWeatherCity.js'
 import WeatherIcons from 'react-weathericons';
-import '../styles/Weather.css';
+import '../styles/WeatherPost.css';
 
 class WeatherPost extends Component {
   constructor (props) {
@@ -288,6 +288,7 @@ class WeatherPost extends Component {
      * Toggling between the display of the 5-day weather forecast or the section to add a new zipcode.
      */
     if (!this.state.addCityToggleButton) {
+      console.log(this.props.nextZipCode)
       return (
         <div className='weather-app'>
           <div className='weather-wrapper'>
@@ -308,16 +309,12 @@ class WeatherPost extends Component {
             <div className='todays-weather-city'>
               <span>{`< `}</span>
               {(this.state.googleGeoCode.results[0].address_components[2].long_name).toUpperCase()}
-              <Link to="/weather/2">
+              <Link to={`/weather/${this.props.nextZipCode}`}>
                 <span>{` >`}</span>
               </Link>
             </div>
-            {/* {weathers} */}
             <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
-
           </div>
-          {/* <div>deconstruct</div>
-          <div>{this.state.zipCode}</div> */}
         </div>
       )
     } else {
