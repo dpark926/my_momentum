@@ -134,12 +134,18 @@ class WeatherPost extends Component {
 
       return (
         <div className="each-weather">
-          <div className="each-weather-date">{date}</div>
-          <div className="each-weather-day">{todaysDay}</div>
-          <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>
-          <div className="each-weather-desc">{todaysDesc}</div>
-          <div className="temp each-weather-temp">
-            <span className="each-weather-min">L{todaysMin}°</span> / <span className="each-weather-max">H{todaysMax}°</span>
+          <div className='each-weather-section'>
+            <div className="each-weather-date">{date}</div>
+            <div className="each-weather-day">{todaysDay}</div>
+          </div>
+          <div className='each-weather-section'>
+            <div className={`each-weather-icon ${weatherIcons[todaysDescIcon]}`}></div>
+            <div className="each-weather-desc">{todaysDesc}</div>
+          </div>
+          <div className='each-weather-section'>
+            <div className="temp each-weather-temp">
+              <span className="each-weather-min">L{todaysMin}°</span> / <span className="each-weather-max">H{todaysMax}°</span>
+            </div>
           </div>
         </div>
       )
