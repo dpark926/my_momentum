@@ -1,27 +1,35 @@
 .pomodoro {
-  /*border: 1px solid blue;*/
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: -50px;
   width: 100%;
   height: 100%;
   font-family: 'Karla', sans-serif;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.pomodoro h1 {
+  margin: 0;
 }
 
 .pomodoroNavWrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.time-wrapper {
+.pomodoroBody {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  margin-top: -150px;
+}
+
+.timeWrapper {
+  display: flex;
+  flex-direction: row;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -66,19 +74,55 @@
 }
 
 .black-category-box {
-  min-height: 3em;
+  min-height: 3.5em;
 }
 
-/*.category-box {
-  border: 1px solid green;
-  font-family: 'Abel', sans-serif;
-  display: inline-block;
-  width: 250px;
-  height: 50px;
-  font-size: 40px;
-}*/
-
 @media screen and (min-width: 480px) {
+  .category-box {
+    font-size: 1.5em;
+  }
+
+  .addSubtract {
+    font-size: 2.5em;
+  }
+
+  .pomodoro-time {
+    font-size: 2.5em;
+    min-width: 150px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .category-box {
+    font-size: 2em;
+  }
+
+  .addSubtract {
+    font-size: 3.5em;
+  }
+
+  .pomodoro-time {
+    font-size: 3.5em;
+    min-width: 200px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .category-box {
+    font-size: 2.5em;
+  }
+
+  .addSubtract {
+    font-size: 4em;
+  }
+
+  .pomodoro-time {
+    font-size: 4em;
+    min-width: 250px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
   .category-box {
     font-size: 3em;
   }
@@ -89,13 +133,6 @@
 
   .pomodoro-time {
     font-size: 5em;
-    /* margin: auto;
-    padding: 40px;
-    width: 420px;
-    border: 1px solid white;
-    border-top-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    display: inline-block;
-    text-align: center; */
+    min-width: 300px;
   }
 }
