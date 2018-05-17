@@ -1,17 +1,22 @@
 .stopwatch-app {
-  margin: 3em 10em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
 }
 
 .button-wrapper {
-  /*display: flex;*/
+  display: flex;
+  justify-content: space-around;
 }
 
 .button {
-  margin: auto;
   padding: 10px;
-  width: 200px;
-  font-size: 3em;
-  /*display: block;*/
+  font-size: 2em;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .button:hover {
@@ -19,45 +24,33 @@
 }
 
 .time {
-  font-size: 5em;
-  margin: auto;
-  padding: 40px;
-  width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
   border: 1px solid white;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
-  display: flex;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.minute{
-  /*border: 1px solid white;*/
-  width: 150px;
-  /*display: block;*/
-}
+.timeSection{
 
-.second {
-  /*border: 1px solid white;*/
-  width: 150px;
-  /*display: block;*/
-}
-
-.millisecond {
-  /*border: 1px solid white;*/
-  width: 120px;
-  /*display: block;*/
 }
 
 .laps {
   font-size: 2em;
-  position: fixed;
-  /*text-align: left;*/
-  display: block;
-  right: 100px;
-  top: 140px;
 }
 
 .each-time {
-  width: 200px;
   border-bottom: 1px solid white;
   padding: 5px;
+}
+
+@media screen and (min-width: 480px) {
+  .time {
+    font-size: 5em;
+  }
 }

@@ -98,21 +98,21 @@ class StopWatch extends Component {
         <div className="stopwatch-app">
           <h1>Stop Watch</h1>
           <div className='time'>
-            <div className='minute'>
+            <div className='timeSection'>
               {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} :
             </div>
-            <div className='second'>
+            <div className='timeSection'>
               {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} :
             </div>
-            <div className='millisecond'>
+            <div className='timeSection'>
               {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
             </div>
           </div>
-          <div className='laps'>{laps}</div>
           <div className='button-wrapper'>
             <div className='button' onClick={this.resumeToggle}>RESUME</div>
             <div className='button' onClick={this.resetToggle}>RESET</div>
           </div>
+          <div className='laps'>{laps}</div>
         </div>
       )
     } else {
@@ -120,21 +120,21 @@ class StopWatch extends Component {
         <div className="stopwatch-app">
           <h1>Stop Watch</h1>
           <div className='time'>
-            <div className='minute'>
+            <div className='timeSection'>
               {Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} :
             </div>
-            <div className='second'>
+            <div className='timeSection'>
               {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10} :
             </div>
-            <div className='millisecond'>
+            <div className='timeSection'>
               {Math.floor(this.state.millisecond / 10) % 10}{this.state.millisecond % 10}
             </div>
           </div>
-          <div className='laps'>{laps}</div>
           <div className='button-wrapper'>
             <div className='button' onClick={this.pauseToggle}>PAUSE</div>
             <div className='button' onClick={this.addToLap}>LAP</div>
           </div>
+          <div className='laps'>{laps}</div>
         </div>
       )
     }

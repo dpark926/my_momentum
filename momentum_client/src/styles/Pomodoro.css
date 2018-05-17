@@ -31,6 +31,7 @@
 .timeWrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -106,35 +107,7 @@
   .pomodoro-time {
     font-size: 3.5em;
     min-width: 200px;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  .category-box {
-    font-size: 2.5em;
-  }
-
-  .addSubtract {
-    font-size: 4em;
-  }
-
-  .pomodoro-time {
-    font-size: 4em;
-    min-width: 250px;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .category-box {
-    font-size: 3em;
-  }
-
-  .addSubtract {
-    font-size: 5em;
-  }
-
-  .pomodoro-time {
-    font-size: 5em;
-    min-width: 300px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
   }
 }
