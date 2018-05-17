@@ -93,6 +93,8 @@ class Pomodoro extends Component {
   }
 
   render = () => {
+    const lowTime = this.state.minute < 5 ? {color: '#ff6f69'} : null
+
     if (!this.state.start) {
       return (
         <div className="pomodoro">
@@ -129,7 +131,7 @@ class Pomodoro extends Component {
 
           <div className="pomodoroBody">
             <div className="timeWrapper">
-              <div className="pomodoro-time">{Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div><br/>
+              <div className="pomodoro-time" style={lowTime}>{Math.floor(((this.state.minute) % 60) / 10)}{(this.state.minute) % 10} : {Math.floor(((this.state.second) % 60) / 10)}{(this.state.second) % 10}</div><br/>
             </div>
 
             <div className="timeWrapper">
