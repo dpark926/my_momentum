@@ -3,7 +3,9 @@
   font-family: 'Karla', sans-serif;
   background-color: rgba(0, 0, 0, 0.3);
   height: 100%;
-  width: 100%;
+  /* width: 100%; */
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .weather-wrapper {
@@ -33,6 +35,12 @@
 .todays-weather-wrapper3 {
   padding: 10px;
   margin: auto 0;
+}
+
+@media screen and (min-width: 480px) {
+  .todays-weather-wrapper2 {
+    justify-content: flex-start;
+  }
 }
 
 .todays-weather-date {
@@ -153,7 +161,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border: 1px solid white;
+  border-top: 1px solid white;
   padding: 10px;
 }
 
@@ -163,11 +171,13 @@
 
 .each-weather-date {
   color: #8f8992;
+  line-height: 1.5;
 }
 
 .each-weather-day {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1em;
+  line-height: 1.5;
 }
 
 .each-weather-min {
@@ -207,6 +217,11 @@
 
   .each-weather-section {
     width: auto;
+  }
+
+  .each-weather-day {
+    font-weight: bold;
+    font-size: 1.2em;
   }
 
   .each-weather-icon {
