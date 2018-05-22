@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import handleClick from '../actions/weatherActions';
 import AddWeatherCity from '../components/AddWeatherCity.js';
 import WeatherPost from './WeatherPost';
 import '../styles/Weather.css';
@@ -9,8 +11,6 @@ class Weather extends Component {
     super();
 
     this.state = {
-      addCityToggleButton: false,
-      input: '',
       zipCodeData: [],
       error: '',
     }
@@ -88,25 +88,6 @@ class Weather extends Component {
     }))
   }
 
-  /**
-  * An event handler that toggles the display between the 5-day weather forecast
-  * or the input for the zip code.
-  */
-  handleClick = () => {
-    this.setState({
-      addCityToggleButton: !this.state.addCityToggleButton,
-    })
-  }
-
-  /**
-  * An event handler that handles the input of the zip code.
-  */
-  handleInput = (event) => {
-    this.setState({
-      input: event.target.value
-    })
-  }
-
   render = () => {
     let list = this.state.zipCodeData.map( (weather, num, arr) => {
       return (
@@ -118,10 +99,6 @@ class Weather extends Component {
             nextZipCode={arr[num + 1] ? arr[num + 1].city : null}
             id={weather.id}
             addWeather={this.addToWeather}
-            input={this.state.input}
-            handleInput={this.handleInput}
-            addCityToggleButton={this.state.addCityToggleButton}
-            handleClick={this.handleClick}
             error={this.state.error}
             zipCodeData={this.state.zipCodeData}
             deleteWeather={this.deleteWeather}
@@ -149,4 +126,13 @@ class Weather extends Component {
   }
 }
 
-export default Weather
+const mapStateToProps = state => {
+  return state.weatherReducer;
+};
+
+const mapActionsToProps = {
+  // handleClick: handleClick.handleClick,
+  // handleOrigin: handleType.handleTypedOrigin
+}
+
+export default connect( mapStateToProps, mapActionsToProps )( Weather );

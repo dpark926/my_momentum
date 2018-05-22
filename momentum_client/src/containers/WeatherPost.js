@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AddWeatherCity from '../components/AddWeatherCity.js'
+import { connect } from 'react-redux';
+import handleClick from '../actions/weatherActions';
+import AddWeatherCity from '../components/AddWeatherCity.js';
 import WeatherIcons from 'react-weathericons';
 import '../styles/WeatherPost.css';
 
@@ -43,6 +45,21 @@ class WeatherPost extends Component {
     }))
     .catch(err => console.log(err))
     .then(() => console.log('google geocode success'))
+  }
+
+  /**
+  * An event handler that toggles the display between the 5-day weather forecast
+  * or the input for the zip code.
+  */
+  handleClick = () => {
+    this.props.handleClick();
+  }
+
+  /**
+  * An event handler that handles the input of the zip code.
+  */
+  handleInput = (event) => {
+    this.props.handleInput( event.target.value );
   }
 
   render = () => {
@@ -223,7 +240,7 @@ class WeatherPost extends Component {
                 </Link>
               }
             </div>
-            <div className='todays-weather-addcity'><a href="#" onClick={this.props.handleClick}>+ ADD CITY</a></div>
+            <div className='todays-weather-addcity'><a href="#" onClick={this.handleClick}>+ ADD CITY</a></div>
             <Link to={ this.props.nextZipCode ? `/weather/${this.props.nextZipCode}` : `/weather/${this.props.previousZipCode}` } className='todays-weather-city-link'>
               <div onClick={() => this.props.deleteWeather(this.props.id)} className="delete-weather-button">DELETE THIS CITY</div>
             </Link>
@@ -234,13 +251,23 @@ class WeatherPost extends Component {
       return (
         <div className='addCityContainer'>
           <h1>Weather</h1>
-          <AddWeatherCity handleInput={this.props.handleInput} addToWeather={this.props.addWeather} input={this.props.input}/>
+          <AddWeatherCity handleInput={this.handleInput} addToWeather={this.props.addWeather} input={this.props.input}/>
           <div>{this.props.error}</div>
-          <div onClick={this.props.handleClick} className='addCityCancelButton'>Cancel</div>
+          <div onClick={this.handleClick} className='addCityCancelButton'>Cancel</div>
         </div>
       )
     }
   }
 }
 
-export default WeatherPost;
+const mapStateToProps = state => {
+  return state.weatherReducer;
+};
+
+const mapActionsToProps = {
+  handleClick: handleClick.handleClick,
+  handleInput: handleClick.handleInput
+}
+
+export default connect( mapStateToProps, mapActionsToProps )( WeatherPost );
+
